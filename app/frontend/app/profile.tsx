@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Switch } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Switch, StyleSheet } from 'react-native';
 import {
   User,
   Bell,
@@ -48,151 +48,309 @@ export default function ProfileScreen() {
   };
 
   return (
-    <ScrollView className="flex-1 bg-orange-50">
-      {/* Header */}
-      <View className="bg-white pt-12 pb-6 px-6 rounded-b-3xl shadow-sm">
-        <Text className="text-2xl font-bold text-gray-800 text-center mb-6">My Profile</Text>
+    <View style={styles.container}>
+        <ScrollView style={styles.scrollView}>
+        {/* Header */}
+        <View style={styles.header}>
+            <Text style={styles.headerTitle}>My Profile</Text>
 
-        {/* User Info */}
-        <View className="items-center mb-6">
-          <View className="w-24 h-24 rounded-full bg-orange-100 items-center justify-center mb-4">
-            <User size={48} color="#f97316" />
-          </View>
-          <Text className="text-2xl font-bold text-gray-800">{user.name}</Text>
-          <Text className="text-gray-500 mt-1">Food Explorer</Text>
+            {/* User Info */}
+            <View style={styles.userInfo}>
+            <View style={styles.avatarContainer}>
+                <User size={48} color="#f97316" />
+            </View>
+            <Text style={styles.userName}>{user.name}</Text>
+            <Text style={styles.userSubtitle}>Food Explorer</Text>
+            </View>
+
+            {/* Stats */}
+            <View style={styles.statsContainer}>
+            <View style={styles.statItem}>
+                <Text style={styles.statNumber}>{user.matches}</Text>
+                <Text style={styles.statLabel}>Matches</Text>
+            </View>
+            <View style={styles.statItem}>
+                <Text style={styles.statNumber}>{user.favorites}</Text>
+                <Text style={styles.statLabel}>Favorites</Text>
+            </View>
+            <View style={styles.statItem}>
+                <Text style={styles.statNumber}>{user.preferences}</Text>
+                <Text style={styles.statLabel}>Prefs</Text>
+            </View>
+            </View>
         </View>
 
-        {/* Stats */}
-        <View className="flex-row justify-around bg-orange-100 rounded-2xl py-4 mb-6">
-          <View className="items-center">
-            <Text className="text-2xl font-bold text-orange-600">{user.matches}</Text>
-            <Text className="text-gray-600">Matches</Text>
-          </View>
-          <View className="items-center">
-            <Text className="text-2xl font-bold text-orange-600">{user.favorites}</Text>
-            <Text className="text-gray-600">Favorites</Text>
-          </View>
-          <View className="items-center">
-            <Text className="text-2xl font-bold text-orange-600">{user.preferences}</Text>
-            <Text className="text-gray-600">Prefs</Text>
-          </View>
+        {/* Preferences Section */}
+        <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Dietary Preferences</Text>
+
+            <View style={styles.card}>
+            {Object.entries(dietaryPreferences).map(([key, value], index) => (
+                <TouchableOpacity
+                key={key}
+                style={[
+                    styles.preferenceItem,
+                    index < Object.entries(dietaryPreferences).length - 1 && styles.preferenceItemBorder
+                ]}
+                onPress={() => toggleDietaryPreference(key as keyof typeof dietaryPreferences)}
+                >
+                <View style={styles.preferenceContent}>
+                    {key === 'vegetarian' && <Leaf size={20} color="#10b981" style={styles.preferenceIcon} />}
+                    {key === 'vegan' && <Leaf size={20} color="#10b981" style={styles.preferenceIcon} />}
+                    {key === 'glutenFree' && <Wheat size={20} color="#f97316" style={styles.preferenceIcon} />}
+                    {key === 'dairyFree' && <Milk size={20} color="#3b82f6" style={styles.preferenceIcon} />}
+                    {key === 'nutFree' && <AlertCircle size={20} color="#ef4444" style={styles.preferenceIcon} />}
+                    <Text style={styles.preferenceText}>
+                    {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+                    </Text>
+                </View>
+                <Switch
+                    trackColor={{ false: "#d1d5db", true: "#f97316" }}
+                    thumbColor={value ? "#ffffff" : "#f4f4f5"}
+                    ios_backgroundColor="#d1d5db"
+                    onValueChange={() => toggleDietaryPreference(key as keyof typeof dietaryPreferences)}
+                    value={value}
+                />
+                </TouchableOpacity>
+            ))}
+            </View>
         </View>
-      </View>
 
-      {/* Preferences Section */}
-      <View className="px-6 mt-6">
-        <Text className="text-xl font-bold text-gray-800 mb-4">Dietary Preferences</Text>
+        {/* Notification Settings */}
+        <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Notifications</Text>
 
-        <View className="bg-white rounded-2xl p-4 shadow-sm">
-          {Object.entries(dietaryPreferences).map(([key, value], index) => (
-            <TouchableOpacity
-              key={key}
-              className={`flex-row items-center justify-between py-3 ${index < Object.entries(dietaryPreferences).length - 1 ? 'border-b border-gray-100' : ''}`}
-              onPress={() => toggleDietaryPreference(key as keyof typeof dietaryPreferences)}
-            >
-              <View className="flex-row items-center">
-                {key === 'vegetarian' && <Leaf size={20} color="#10b981" className="mr-3" />}
-                {key === 'vegan' && <Leaf size={20} color="#10b981" className="mr-3" />}
-                {key === 'glutenFree' && <Wheat size={20} color="#f97316" className="mr-3" />}
-                {key === 'dairyFree' && <Milk size={20} color="#3b82f6" className="mr-3" />}
-                {key === 'nutFree' && <AlertCircle size={20} color="#ef4444" className="mr-3" />}
-                <Text className="text-gray-700 capitalize">
-                  {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
-                </Text>
-              </View>
-              <Switch
+            <View style={styles.card}>
+            <View style={styles.settingItem}>
+                <View style={styles.settingContent}>
+                <Bell size={20} color="#f97316" style={styles.settingIcon} />
+                <Text style={styles.settingText}>Match Alerts</Text>
+                </View>
+                <Switch
                 trackColor={{ false: "#d1d5db", true: "#f97316" }}
-                thumbColor={value ? "#ffffff" : "#f4f4f5"}
+                thumbColor={notificationsEnabled ? "#ffffff" : "#f4f4f5"}
                 ios_backgroundColor="#d1d5db"
-                onValueChange={() => toggleDietaryPreference(key as keyof typeof dietaryPreferences)}
-                value={value}
-              />
+                onValueChange={setNotificationsEnabled}
+                value={notificationsEnabled}
+                />
+            </View>
+            </View>
+        </View>
+
+        {/* Account Settings */}
+        <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Account Settings</Text>
+
+            <View style={styles.card}>
+            <TouchableOpacity style={[styles.settingItem, styles.settingItemBorder]}>
+                <View style={styles.settingContent}>
+                <Edit3 size={20} color="#6b7280" style={styles.settingIcon} />
+                <Text style={styles.settingText}>Edit Profile</Text>
+                </View>
             </TouchableOpacity>
-          ))}
-        </View>
-      </View>
 
-      {/* Notification Settings */}
-      <View className="px-6 mt-6">
-        <Text className="text-xl font-bold text-gray-800 mb-4">Notifications</Text>
+            <TouchableOpacity
+                style={[styles.settingItem, styles.settingItemBorder]}
+                onPress={handleLogout}
+            >
+                <View style={styles.settingContent}>
+                <LogOut size={20} color="#10b981" style={styles.settingIcon} />
+                <Text style={styles.settingText}>Logout</Text>
+                </View>
+            </TouchableOpacity>
 
-        <View className="bg-white rounded-2xl p-4 shadow-sm">
-          <View className="flex-row items-center justify-between">
-            <View className="flex-row items-center">
-              <Bell size={20} color="#f97316" className="mr-3" />
-              <Text className="text-gray-700">Match Alerts</Text>
+            <TouchableOpacity
+                style={styles.settingItem}
+                onPress={handleDeleteAccount}
+            >
+                <View style={styles.settingContent}>
+                <Trash2 size={20} color="#ef4444" style={styles.settingIcon} />
+                <Text style={styles.settingText}>Delete Account</Text>
+                </View>
+            </TouchableOpacity>
             </View>
-            <Switch
-              trackColor={{ false: "#d1d5db", true: "#f97316" }}
-              thumbColor={notificationsEnabled ? "#ffffff" : "#f4f4f5"}
-              ios_backgroundColor="#d1d5db"
-              onValueChange={setNotificationsEnabled}
-              value={notificationsEnabled}
-            />
-          </View>
         </View>
-      </View>
 
-      {/* Account Settings */}
-      <View className="px-6 mt-6">
-        <Text className="text-xl font-bold text-gray-800 mb-4">Account Settings</Text>
+        {/* Personalized Stats */}
+        <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Your Stats</Text>
 
-        <View className="bg-white rounded-2xl shadow-sm">
-          <TouchableOpacity className="flex-row items-center justify-between p-4 border-b border-gray-100">
-            <View className="flex-row items-center">
-              <Edit3 size={20} color="#6b7280" className="mr-3" />
-              <Text className="text-gray-700">Edit Profile</Text>
+            <View style={styles.card}>
+            <View style={styles.statRow}>
+                <Text style={styles.statLabel}>Top Cuisine</Text>
+                <Text style={styles.statValue}>Italian</Text>
             </View>
-          </TouchableOpacity>
 
-          <TouchableOpacity
-            className="flex-row items-center justify-between p-4 border-b border-gray-100"
-            onPress={handleLogout}
-          >
-            <View className="flex-row items-center">
-              <LogOut size={20} color="#10b981" className="mr-3" />
-              <Text className="text-gray-700">Logout</Text>
+            <View style={styles.statRow}>
+                <Text style={styles.statLabel}>Match Rate</Text>
+                <Text style={styles.statValue}>72%</Text>
             </View>
-          </TouchableOpacity>
 
-          <TouchableOpacity
-            className="flex-row items-center justify-between p-4"
-            onPress={handleDeleteAccount}
-          >
-            <View className="flex-row items-center">
-              <Trash2 size={20} color="#ef4444" className="mr-3" />
-              <Text className="text-gray-700">Delete Account</Text>
+            <View style={styles.statRow}>
+                <Text style={styles.statLabel}>Favorite Time</Text>
+                <Text style={styles.statValue}>Evening</Text>
             </View>
-          </TouchableOpacity>
+
+            <View style={styles.statRow}>
+                <Text style={styles.statLabel}>Discovery Streak</Text>
+                <Text style={styles.statValue}>12 days</Text>
+            </View>
+            </View>
         </View>
-      </View>
-
-      {/* Personalized Stats */}
-      <View className="px-6 mt-6 mb-8">
-        <Text className="text-xl font-bold text-gray-800 mb-4">Your Stats</Text>
-
-        <View className="bg-white rounded-2xl p-4 shadow-sm">
-          <View className="flex-row justify-between mb-3">
-            <Text className="text-gray-600">Top Cuisine</Text>
-            <Text className="font-semibold text-orange-600">Italian</Text>
-          </View>
-
-          <View className="flex-row justify-between mb-3">
-            <Text className="text-gray-600">Match Rate</Text>
-            <Text className="font-semibold text-orange-600">72%</Text>
-          </View>
-
-          <View className="flex-row justify-between mb-3">
-            <Text className="text-gray-600">Favorite Time</Text>
-            <Text className="font-semibold text-orange-600">Evening</Text>
-          </View>
-
-          <View className="flex-row justify-between">
-            <Text className="text-gray-600">Discovery Streak</Text>
-            <Text className="font-semibold text-orange-600">12 days</Text>
-          </View>
-        </View>
-      </View>
-    </ScrollView>
+        </ScrollView>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#f3f4f6',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    scrollView: {
+        flex: 1,
+        backgroundColor: '#fef3c7', // orange-50 equivalent
+    },
+    header: {
+        backgroundColor: 'white',
+        paddingTop: 48,
+        paddingBottom: 24,
+        paddingHorizontal: 24,
+        borderBottomLeftRadius: 24,
+        borderBottomRightRadius: 24,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.05,
+        shadowRadius: 3.84,
+        elevation: 2,
+    },
+    headerTitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#1f2937', // gray-800
+        textAlign: 'center',
+        marginBottom: 24,
+    },
+    userInfo: {
+        alignItems: 'center',
+        marginBottom: 24,
+    },
+    avatarContainer: {
+        width: 96,
+        height: 96,
+        borderRadius: 48,
+        backgroundColor: '#fed7aa', // orange-100
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 16,
+    },
+    userName: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#1f2937', // gray-800
+    },
+    userSubtitle: {
+        color: '#6b7280', // gray-500
+        marginTop: 4,
+    },
+    statsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        backgroundColor: '#fed7aa', // orange-100
+        borderRadius: 16,
+        paddingVertical: 16,
+        marginBottom: 24,
+    },
+    statItem: {
+        alignItems: 'center',
+    },
+    statNumber: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#ea580c', // orange-600
+    },
+    statLabel: {
+        color: '#4b5563', // gray-600
+    },
+    section: {
+        paddingHorizontal: 24,
+        marginTop: 24,
+    },
+    sectionTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#1f2937', // gray-800
+        marginBottom: 16,
+    },
+    card: {
+        backgroundColor: 'white',
+        borderRadius: 16,
+        padding: 16,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.05,
+        shadowRadius: 3.84,
+        elevation: 2,
+    },
+    preferenceItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingVertical: 12,
+    },
+    preferenceItemBorder: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#f3f4f6', // gray-100
+    },
+    preferenceContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    preferenceIcon: {
+        marginRight: 12,
+    },
+    preferenceText: {
+        color: '#374151', // gray-700
+        textTransform: 'capitalize',
+    },
+    settingItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingVertical: 16,
+    },
+    settingItemBorder: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#f3f4f6', // gray-100
+    },
+    settingContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    settingIcon: {
+        marginRight: 12,
+    },
+    settingText: {
+        color: '#374151', // gray-700
+    },
+    statRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 12,
+    },
+    statValue: {
+        fontWeight: '600',
+        color: '#ea580c', // orange-600
+    },
+    text: {
+        color: '#374151',
+    }
+});

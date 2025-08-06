@@ -1,10 +1,9 @@
 import winston from "winston";
 import path from "path";
-import { Request, Response } from "express";
 
 // Create logs directory if it doesn't exist
 import fs from "fs";
-const logDir = path.join(__dirname, "../logs");
+const logDir = path.join("./", "../logs");
 if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir, { recursive: true });
 }
@@ -21,7 +20,7 @@ const logFormat = winston.format.combine(
 
 // Create logger instance
 const logger = winston.createLogger({
-  level: process.env.LOG_LEVEL || "info",
+  level: process.env.LOG_LEVEL,
   format: logFormat,
   defaultMeta: { service: "dindin-backend" },
   transports: [
@@ -55,7 +54,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 // Helper functions for common logging patterns
-const logError = (error: Error, context = {}) => {
+const logError = (error, context = {}) => {
   logger.error({
     message: error.message,
     stack: error.stack,
@@ -63,7 +62,7 @@ const logError = (error: Error, context = {}) => {
   });
 };
 
-const logRequest = (req: Request, res: Response, duration: number) => {
+const logRequest = (req, res, duration) => {
   logger.info({
     method: req.method,
     url: req.originalUrl,
@@ -75,7 +74,7 @@ const logRequest = (req: Request, res: Response, duration: number) => {
   });
 };
 
-const logDatabaseError = (error: Error, query: string, params: any[]) => {
+const logDatabaseError = (error, query, params) => {
   logger.error({
     message: "Database query failed",
     error: error.message,
@@ -85,7 +84,7 @@ const logDatabaseError = (error: Error, query: string, params: any[]) => {
   });
 };
 
-const logSecurityEvent = (event: string, req: Request, details = {}) => {
+const logSecurityEvent = (event, req, details = {}) => {
   logger.warn({
     event: "security",
     type: event,
@@ -97,7 +96,8 @@ const logSecurityEvent = (event: string, req: Request, details = {}) => {
   });
 };
 
-export default {
+export {
+  logger as default,
   logger,
   logError,
   logRequest,

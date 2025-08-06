@@ -1,13 +1,14 @@
 import { Pool } from "pg";
 import dotenv from "dotenv";
+
 dotenv.config();
 
 // Database configuration
 const dbConfig = {
-  host: process.env.DB_HOST || "localhost",
-  port: process.env.DB_PORT || 5432,
-  database: process.env.DB_NAME || "dindin_db",
-  user: process.env.DB_USER || "dindin_user",
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  database: process.env.DB_NAME,
+  user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
 
   // Connection pool settings
@@ -27,7 +28,7 @@ const dbConfig = {
 const pool = new Pool(dbConfig);
 
 // Error handling for pool
-pool.on("error", (err: Error) => {
+pool.on("error", (err) => {
   console.error("Unexpected error on idle client", err);
   process.exit(-1);
 });
@@ -40,14 +41,14 @@ const testConnection = async () => {
     console.log("✅ Database connected successfully at:", result.rows[0].now);
     client.release();
     return true;
-  } catch (err: any) {
+  } catch (err) {
     console.error("❌ Database connection failed:", err.message);
     return false;
   }
 };
 
 // Query helper function with error handling
-const query = async (text: string, params: any[]) => {
+const query = async (text, params) => {
   const start = Date.now();
   try {
     const result = await pool.query(text, params);
@@ -59,14 +60,14 @@ const query = async (text: string, params: any[]) => {
     }
 
     return result;
-  } catch (error: any) {
+  } catch (error) {
     console.error("Database query error:", error);
     throw error;
   }
 };
 
 // Transaction helper
-const transaction = async (callback: (client: any) => Promise<any>) => {
+const transaction = async (callback) => {
   const client = await pool.connect();
 
   try {
@@ -74,7 +75,7 @@ const transaction = async (callback: (client: any) => Promise<any>) => {
     const result = await callback(client);
     await client.query("COMMIT");
     return result;
-  } catch (error: any) {
+  } catch (error) {
     await client.query("ROLLBACK");
     throw error;
   } finally {
@@ -89,10 +90,4 @@ const shutdown = async () => {
   console.log("Database connections closed.");
 };
 
-export default {
-  pool,
-  query,
-  transaction,
-  testConnection,
-  shutdown,
-};
+export { pool, query, transaction, testConnection, shutdown };
