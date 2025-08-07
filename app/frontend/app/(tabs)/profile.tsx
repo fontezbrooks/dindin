@@ -11,6 +11,7 @@ import {
   Milk,
   AlertCircle
 } from 'lucide-react-native';
+import { router } from 'expo-router';
 
 export default function ProfileScreen() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
@@ -31,12 +32,14 @@ export default function ProfileScreen() {
 
   const handleLogout = () => {
     console.log('Logout pressed');
-    // Implement logout logic here
+    // Navigate back to auth flow
+    router.replace('/auth/login');
   };
 
   const handleDeleteAccount = () => {
     console.log('Delete account pressed');
-    // Implement delete account logic here
+    // Navigate back to auth flow
+    router.replace('/auth/login');
   };
 
   // Mock user data

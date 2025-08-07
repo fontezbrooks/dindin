@@ -1,6 +1,5 @@
 ---
-description: Code Quality Guidelines
-globs: 
+alwaysApply: true
 ---
 # Code Quality Guidelines
 
