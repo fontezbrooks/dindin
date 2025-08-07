@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView, Image, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, Image, StyleSheet, ActivityIndicator } from 'react-native';
 import { Mail, Lock, Eye, EyeOff, User, ArrowRight } from 'lucide-react-native';
 import { Link, router } from 'expo-router';
+import { useAuthStore } from '../../stores/authStore';
 
 export default function SignupScreen() {
   const [name, setName] = useState('');
@@ -11,10 +12,21 @@ export default function SignupScreen() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleSignup = () => {
-    // Fake signup - just navigate to main app
-    console.log('Signup with:', { name, email, password });
-    router.replace('/(tabs)');
+  const { signup, isLoading, error, clearError } = useAuthStore();
+
+  const handleSignup = async () => {
+    if (!name || !email || !password || !confirmPassword) {
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      return;
+    }
+
+    const success = await signup(name, email, password);
+    if (success) {
+      router.replace('/(tabs)');
+    }
   };
 
   return (
@@ -29,6 +41,16 @@ export default function SignupScreen() {
           <Text style={styles.subtitle}>Create an account to start your food journey</Text>
         </View>
 
+        {/* Error Message */}
+        {error && (
+          <View style={styles.errorContainer}>
+            <Text style={styles.errorText}>{error}</Text>
+            <TouchableOpacity onPress={clearError}>
+              <Text style={styles.errorDismiss}>✕</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
         {/* Signup Form */}
         <View style={styles.form}>
           <View style={styles.inputGroup}>
@@ -41,6 +63,7 @@ export default function SignupScreen() {
                 placeholderTextColor="#9ca3af"
                 value={name}
                 onChangeText={setName}
+                editable={!isLoading}
               />
             </View>
           </View>
@@ -57,6 +80,7 @@ export default function SignupScreen() {
                 onChangeText={setEmail}
                 keyboardType="email-address"
                 autoCapitalize="none"
+                editable={!isLoading}
               />
             </View>
           </View>
@@ -72,8 +96,9 @@ export default function SignupScreen() {
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry={!showPassword}
+                editable={!isLoading}
               />
-              <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+              <TouchableOpacity onPress={() => setShowPassword(!showPassword)} disabled={isLoading}>
                 {showPassword ? (
                   <EyeOff color="#9ca3af" size={20} />
                 ) : (
@@ -94,8 +119,9 @@ export default function SignupScreen() {
                 value={confirmPassword}
                 onChangeText={setConfirmPassword}
                 secureTextEntry={!showConfirmPassword}
+                editable={!isLoading}
               />
-              <TouchableOpacity onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
+              <TouchableOpacity onPress={() => setShowConfirmPassword(!showConfirmPassword)} disabled={isLoading}>
                 {showConfirmPassword ? (
                   <EyeOff color="#9ca3af" size={20} />
                 ) : (
@@ -106,10 +132,15 @@ export default function SignupScreen() {
           </View>
 
           <TouchableOpacity
-            style={styles.signupButton}
+            style={[styles.signupButton, isLoading && styles.signupButtonDisabled]}
             onPress={handleSignup}
+            disabled={isLoading}
           >
-            <Text style={styles.signupButtonText}>Create Account</Text>
+            {isLoading ? (
+              <ActivityIndicator color="white" size="small" />
+            ) : (
+              <Text style={styles.signupButtonText}>Create Account</Text>
+            )}
           </TouchableOpacity>
 
           <View style={styles.divider}>
@@ -118,7 +149,7 @@ export default function SignupScreen() {
             <View style={styles.dividerLine} />
           </View>
 
-          <TouchableOpacity style={styles.googleButton}>
+          <TouchableOpacity style={styles.googleButton} disabled={isLoading}>
             <Image
               source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg' }}
               style={styles.googleIcon}
@@ -131,7 +162,7 @@ export default function SignupScreen() {
         <View style={styles.footer}>
           <Text style={styles.footerText}>Already have an account? </Text>
           <Link href="/auth/login" asChild>
-            <TouchableOpacity>
+            <TouchableOpacity disabled={isLoading}>
               <Text style={styles.footerLink}>Sign In</Text>
             </TouchableOpacity>
           </Link>
@@ -180,6 +211,27 @@ const styles = StyleSheet.create({
     color: '#9ca3af',
     fontSize: 16,
   },
+  errorContainer: {
+    backgroundColor: '#fef2f2',
+    borderColor: '#fecaca',
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 24,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  errorText: {
+    color: '#dc2626',
+    fontSize: 14,
+    flex: 1,
+  },
+  errorDismiss: {
+    color: '#dc2626',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   form: {
     marginBottom: 32,
   },
@@ -214,6 +266,9 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     alignItems: 'center',
     marginBottom: 24,
+  },
+  signupButtonDisabled: {
+    opacity: 0.6,
   },
   signupButtonText: {
     color: 'white',

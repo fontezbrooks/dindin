@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ScrollView, Image, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, Image, StyleSheet, ActivityIndicator } from 'react-native';
 import { Mail, Lock, Eye, EyeOff, ArrowRight, UserPlus } from 'lucide-react-native';
 import { Link, router } from 'expo-router';
+import { useAuthStore } from '../../stores/authStore';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = () => {
-    // Fake login - just navigate to main app
-    console.log('Login with:', { email, password });
-    router.replace('/(tabs)');
+  const { login, isLoading, error, clearError } = useAuthStore();
+
+  const handleLogin = async () => {
+    if (!email || !password) {
+      return;
+    }
+
+    const success = await login(email, password);
+    if (success) {
+      router.replace('/(tabs)');
+    }
   };
 
   return (
@@ -25,6 +33,16 @@ export default function LoginScreen() {
           <Text style={styles.title}>Welcome Back</Text>
           <Text style={styles.subtitle}>Sign in to continue your food journey</Text>
         </View>
+
+        {/* Error Message */}
+        {error && (
+          <View style={styles.errorContainer}>
+            <Text style={styles.errorText}>{error}</Text>
+            <TouchableOpacity onPress={clearError}>
+              <Text style={styles.errorDismiss}>✕</Text>
+            </TouchableOpacity>
+          </View>
+        )}
 
         {/* Login Form */}
         <View style={styles.form}>
@@ -40,6 +58,7 @@ export default function LoginScreen() {
                 onChangeText={setEmail}
                 keyboardType="email-address"
                 autoCapitalize="none"
+                editable={!isLoading}
               />
             </View>
           </View>
@@ -55,8 +74,9 @@ export default function LoginScreen() {
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry={!showPassword}
+                editable={!isLoading}
               />
-              <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+              <TouchableOpacity onPress={() => setShowPassword(!showPassword)} disabled={isLoading}>
                 {showPassword ? (
                   <EyeOff color="#9ca3af" size={20} />
                 ) : (
@@ -67,10 +87,15 @@ export default function LoginScreen() {
           </View>
 
           <TouchableOpacity
-            style={styles.loginButton}
+            style={[styles.loginButton, isLoading && styles.loginButtonDisabled]}
             onPress={handleLogin}
+            disabled={isLoading}
           >
-            <Text style={styles.loginButtonText}>Sign In</Text>
+            {isLoading ? (
+              <ActivityIndicator color="white" size="small" />
+            ) : (
+              <Text style={styles.loginButtonText}>Sign In</Text>
+            )}
           </TouchableOpacity>
 
           <View style={styles.divider}>
@@ -79,7 +104,7 @@ export default function LoginScreen() {
             <View style={styles.dividerLine} />
           </View>
 
-          <TouchableOpacity style={styles.googleButton}>
+          <TouchableOpacity style={styles.googleButton} disabled={isLoading}>
             <Image
               source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg' }}
               style={styles.googleIcon}
@@ -92,7 +117,7 @@ export default function LoginScreen() {
         <View style={styles.footer}>
           <Text style={styles.footerText}>Don't have an account? </Text>
           <Link href="/auth/signup" asChild>
-            <TouchableOpacity>
+            <TouchableOpacity disabled={isLoading}>
               <Text style={styles.footerLink}>Sign Up</Text>
             </TouchableOpacity>
           </Link>
@@ -141,6 +166,27 @@ const styles = StyleSheet.create({
     color: '#9ca3af',
     fontSize: 16,
   },
+  errorContainer: {
+    backgroundColor: '#fef2f2',
+    borderColor: '#fecaca',
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 24,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  errorText: {
+    color: '#dc2626',
+    fontSize: 14,
+    flex: 1,
+  },
+  errorDismiss: {
+    color: '#dc2626',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   form: {
     marginBottom: 32,
   },
@@ -175,6 +221,9 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     alignItems: 'center',
     marginBottom: 24,
+  },
+  loginButtonDisabled: {
+    opacity: 0.6,
   },
   loginButtonText: {
     color: 'white',
