@@ -3,10 +3,23 @@
   "type": "object",
   "required": [
     "_id",
+    "__v",
+    "cook_time",
+    "cuisine",
+    "cuisine_type",
     "description",
+    "dietary_tags",
     "difficulty",
+    "image_url",
+    "import_metadata",
     "ingredients",
     "instructions",
+    "isActive",
+    "likes",
+    "nutrition",
+    "prep_time",
+    "servings",
+    "tags",
     "title"
   ],
   "properties": {
@@ -18,12 +31,6 @@
     },
     "cook_time": {
       "type": "integer"
-    },
-    "cookTime": {
-      "type": "integer"
-    },
-    "createdAt": {
-      "$ref": "#/$defs/Date"
     },
     "cuisine": {
       "type": "array",
@@ -37,12 +44,6 @@
     "description": {
       "type": "string"
     },
-    "dietary": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
     "dietary_tags": {
       "type": "array",
       "items": {
@@ -50,12 +51,6 @@
       }
     },
     "difficulty": {
-      "type": "string"
-    },
-    "dislikes": {
-      "type": "integer"
-    },
-    "image": {
       "type": "string"
     },
     "image_url": {
@@ -102,9 +97,6 @@
           "unit"
         ],
         "properties": {
-          "_id": {
-            "$ref": "#/$defs/ObjectId"
-          },
           "amount": {
             "type": "string"
           },
@@ -112,10 +104,7 @@
             "type": "string"
           },
           "unit": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           }
         }
       }
@@ -129,14 +118,8 @@
           "step"
         ],
         "properties": {
-          "_id": {
-            "$ref": "#/$defs/ObjectId"
-          },
           "description": {
             "type": "string"
-          },
-          "duration": {
-            "type": "integer"
           },
           "step": {
             "type": "integer"
@@ -184,9 +167,6 @@
     "prep_time": {
       "type": "integer"
     },
-    "prepTime": {
-      "type": "integer"
-    },
     "servings": {
       "type": "integer"
     },
@@ -198,9 +178,6 @@
     },
     "title": {
       "type": "string"
-    },
-    "updatedAt": {
-      "$ref": "#/$defs/Date"
     }
   },
   "$defs": {
@@ -235,19 +212,6 @@
           }
         }
       ]
-    },
-    "Date": {
-      "type": "object",
-      "properties": {
-        "$date": {
-          "type": "string",
-          "format": "date-time"
-        }
-      },
-      "required": [
-        "$date"
-      ],
-      "additionalProperties": false
     }
   }
 }

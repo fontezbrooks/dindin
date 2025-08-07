@@ -1,0 +1,77 @@
+[
+  {
+    "title": "Shrimp Scampi Linguine",
+    "ingredients": [
+      {
+        "name": "linguine",
+        "amount": "12",
+        "unit": "oz"
+      },
+      {
+        "name": "large shrimp, peeled",
+        "amount": "1",
+        "unit": "lb"
+      },
+      {
+        "name": "olive oil",
+        "amount": "2",
+        "unit": "tbsp"
+      },
+      {
+        "name": "white wine",
+        "amount": "1/2",
+        "unit": "cup"
+      },
+      {
+        "name": "butter",
+        "amount": "3",
+        "unit": "tbsp"
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "description": "Cook linguine until al dente.",
+        "duration": 10
+      },
+      {
+        "step": 2,
+        "description": "Sauté shrimp with garlic and red-pepper flakes.",
+        "duration": 4
+      },
+      {
+        "step": 3,
+        "description": "Deglaze with wine; finish with butter and lemon.",
+        "duration": 5
+      },
+      {
+        "step": 4,
+        "description": "Toss pasta in sauce; garnish with parsley.",
+        "duration": 3
+      }
+    ],
+    "difficulty": "medium",
+    "description": "Scampi classic that topped Food & Wine's 2025 'Weeknight 15' list.",
+    "image_url": "https://images.unsplash.com/photo-1589927986089-35812388d1d4",
+    "prep_time": 10,
+    "cook_time": 20,
+    "cuisine_type": "Italian-American",
+    "dietary_tags": ["pescatarian"],
+    "nutrition": {
+      "calories": 530,
+      "protein": 30,
+      "carbs": 58,
+      "fat": 18,
+      "fiber": 4,
+      "sugar": 3
+    },
+    "import_metadata": {
+      "source_url": "https://www.foodsandwine.com/recipes/shrimp-scampi-pasta",
+      "scraper_name": "manual_entry",
+      "scraper_version": "1.0.0",
+      "confidence_score": 0.8,
+      "extracted_at": "2025-08-06T18:01:00Z",
+      "notes": "4.6★ from 1,900 ratings; #shrimpscampi 220M TikTok views"
+    }
+  }
+]

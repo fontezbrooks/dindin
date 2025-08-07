@@ -60,10 +60,15 @@ export const getHeaders = (includeAuth = true) => {
 
   // Add auth token if available and required
   if (includeAuth) {
-    // This would be retrieved from your auth store
-    const token = null; // TODO: Get from auth store
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
+    try {
+      // Get token from auth store
+      const { useAuthStore } = require('../stores/authStore');
+      const user = useAuthStore.getState().user;
+      if (user?.id) {
+        headers['X-User-ID'] = user.id;
+      }
+    } catch (error) {
+      console.warn('Could not get user from auth store:', error);
     }
   }
 

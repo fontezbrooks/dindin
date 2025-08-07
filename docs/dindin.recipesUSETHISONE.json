@@ -1,0 +1,109 @@
+[
+  {
+    "title": "Korean Bulgogi Beef Lettuce Wraps",
+    "description": "Sweet–savory soy-marinated rib-eye strips grilled and wrapped in crisp lettuce with kimchi—K-BBQ flavor without the tabletop grill.",
+    "difficulty": "medium",
+    "cuisine": ["Korean", "Fusion"],
+    "cuisine_type": "Beef",
+    "dietary_tags": ["dairy-free"],
+    "cook_time": 15,
+    "prep_time": 120,
+    "servings": 4,
+    "ingredients": [
+      {
+        "amount": "1 1⁄2",
+        "unit": "lb",
+        "name": "rib-eye steak, thinly sliced"
+      },
+      {
+        "amount": "1⁄3",
+        "unit": "cup",
+        "name": "low-sodium soy sauce"
+      },
+      {
+        "amount": "3",
+        "unit": "tbsp",
+        "name": "brown sugar"
+      },
+      {
+        "amount": "2",
+        "unit": "tbsp",
+        "name": "pear purée"
+      },
+      {
+        "amount": "1",
+        "unit": "tbsp",
+        "name": "sesame oil"
+      },
+      {
+        "amount": "4",
+        "unit": "cloves",
+        "name": "garlic, minced"
+      },
+      {
+        "amount": "2",
+        "unit": "tsp",
+        "name": "fresh ginger, grated"
+      },
+      {
+        "amount": "1",
+        "unit": "tbsp",
+        "name": "gochujang"
+      },
+      {
+        "amount": "2",
+        "unit": "tsp",
+        "name": "toasted sesame seeds"
+      },
+      {
+        "amount": "1",
+        "unit": "head",
+        "name": "butter lettuce, leaves separated"
+      },
+      {
+        "amount": "1",
+        "unit": "cup",
+        "name": "kimchi, chopped"
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "description": "Whisk soy, sugar, pear, sesame oil, garlic, ginger, and gochujang; marinate beef 1–2 hrs."
+      },
+      {
+        "step": 2,
+        "description": "Heat grill pan high; cook beef in batches 1 min per side until charred."
+      },
+      {
+        "step": 3,
+        "description": "Sprinkle with sesame seeds."
+      },
+      {
+        "step": 4,
+        "description": "Serve beef in lettuce cups with kimchi."
+      }
+    ],
+    "nutrition": {
+      "calories": 394,
+      "carbs": 17,
+      "fat": 24,
+      "fiber": 1,
+      "protein": 27,
+      "sugar": 12
+    },
+    "image_url": "https://images.unsplash.com/photo-1603297631957-c5887924766a",
+    "tags": ["grill", "lettuce-wrap"],
+    "import_metadata": {
+      "confidence_score": 0.94,
+      "extracted_at": "2025-08-07T11:00:00Z",
+      "notes": "Trending on Bon Appétit June 2025; Instagram reel >2 M views.",
+      "scraper_name": "OpenAI-recipe-bot",
+      "scraper_version": "1.0",
+      "source_url": "https://www.bonappetit.com/recipe/bulgogi"
+    },
+    "isActive": true,
+    "likes": 3221,
+    "__v": 0
+  }
+]

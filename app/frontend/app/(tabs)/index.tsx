@@ -15,6 +15,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useRecipeStore } from '../../stores/recipeStore';
 import { useAuthStore } from '../../stores/authStore';
+import PlaceholderImage from '../../components/PlaceholderImage';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -228,7 +229,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
     // Background card - no gestures, just display
     return (
       <Animated.View style={[styles.recipeCard, cardStyle]}>
-        <Image
+        <PlaceholderImage
           source={{ uri: recipe.image }}
           style={styles.recipeImage}
           resizeMode="cover"
@@ -245,7 +246,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
       <Animated.View style={[styles.recipeCard, cardStyle]}>
         {/* Front of card */}
         <Animated.View style={[styles.cardSide, styles.cardFront, frontStyle]}>
-          <Image
+          <PlaceholderImage
             source={{ uri: recipe.image }}
             style={styles.recipeImage}
             resizeMode="cover"
@@ -576,7 +577,7 @@ export default function Home() {
                 const recipe = recipes.find(r => r.id === id);
                 return recipe ? (
                   <View key={id} style={styles.matchItem}>
-                    <Image
+                    <PlaceholderImage
                       source={{ uri: recipe.image }}
                       style={styles.matchImage}
                     />

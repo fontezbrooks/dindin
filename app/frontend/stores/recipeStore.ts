@@ -111,8 +111,18 @@ export const useRecipeStore = create<RecipeState>((set, get) => ({
     set({ isSwipeLoading: true });
 
     try {
+      // Get userId from auth store or use fallback
+      let userId = 'anonymous';
+      try {
+        const { useAuthStore } = await import('./authStore');
+        userId = useAuthStore.getState().user?.id || 'anonymous';
+      } catch (error) {
+        console.warn('Could not get userId from auth store:', error);
+      }
+      
       // Record swipe using the service
       const swipeResult = await recipeService.recordSwipe({
+        userId,
         recipeId,
         direction,
         timestamp: new Date(),
