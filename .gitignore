@@ -140,3 +140,5 @@ vite.config.ts.timestamp-*
 
 # Ds_Store
 .DS_Store
+./.DS_Store
+.DS_Store
