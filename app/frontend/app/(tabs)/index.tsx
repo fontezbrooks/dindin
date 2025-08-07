@@ -29,6 +29,7 @@ interface RecipeCardProps {
   onSwipeLeft: () => void;
   onSwipeRight: () => void;
   onShowMore: (recipe: any) => void;
+  onFlipChange?: (isFlipped: boolean) => void;
 }
 
 const RecipeCard: React.FC<RecipeCardProps> = ({
@@ -36,7 +37,8 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
   isTopCard,
   onSwipeLeft,
   onSwipeRight,
-  onShowMore
+  onShowMore,
+  onFlipChange
 }) => {
   // Animated values
   const translateX = useSharedValue(0);
@@ -109,16 +111,19 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
   // Handle flip animation
   const handleFlip = useCallback(() => {
     const newRotation = isFlipped ? 0 : 180;
-    flipRotation.value = withTiming(newRotation, { 
+    const newFlippedState = !isFlipped;
+
+    flipRotation.value = withTiming(newRotation, {
       duration: 600,
       easing: Easing.inOut(Easing.ease),
     });
-    
+
     // Delay the state change to sync with the animation midpoint
     setTimeout(() => {
-      setIsFlipped(!isFlipped);
+      setIsFlipped(newFlippedState);
+      onFlipChange?.(newFlippedState);
     }, 300);
-  }, [isFlipped, flipRotation]);
+  }, [isFlipped, flipRotation, onFlipChange]);
 
   // Create pan gesture
   const gesture = Gesture.Pan()
@@ -185,7 +190,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
     };
   });
 
-  // Back side style  
+  // Back side style
   const backStyle = useAnimatedStyle(() => {
     const rotateY = flipRotation.value;
     return {
@@ -393,6 +398,23 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
               </View>
             </View>
           </ScrollView>
+
+          {/* Action Buttons for Card Back */}
+          <View style={styles.cardBackActions}>
+            <TouchableOpacity
+              style={[styles.cardBackActionButton, styles.rejectButton]}
+              onPress={onSwipeLeft}
+            >
+              <X color="#ef4444" size={24} />
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.cardBackActionButton, styles.likeButton]}
+              onPress={onSwipeRight}
+            >
+              <Heart color="#10b981" fill="#10b981" size={24} />
+            </TouchableOpacity>
+          </View>
         </Animated.View>
       </Animated.View>
     </GestureDetector>
@@ -415,11 +437,17 @@ export default function Home() {
   } = useRecipeStore();
 
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isCardFlipped, setIsCardFlipped] = useState(false);
 
   // Load recipes on mount
   useEffect(() => {
     loadRecipes(isAuthenticated);
   }, [isAuthenticated]);
+
+  // Reset flip state when current card changes
+  useEffect(() => {
+    setIsCardFlipped(false);
+  }, [currentIndex]);
 
   // Show match notifications
   useEffect(() => {
@@ -473,6 +501,10 @@ export default function Home() {
   const handleShowMore = useCallback((recipe: any) => {
     // This is now handled by the flip animation
     console.log('Show more for recipe:', recipe.id);
+  }, []);
+
+  const handleFlipChange = useCallback((isFlipped: boolean) => {
+    setIsCardFlipped(isFlipped);
   }, []);
 
   const handleResetSwipes = useCallback(() => {
@@ -607,27 +639,30 @@ export default function Home() {
               onSwipeLeft={handleSwipeLeft}
               onSwipeRight={handleSwipeRight}
               onShowMore={handleShowMore}
+              onFlipChange={handleFlipChange}
             />
           )}
 
-          {/* Action Buttons */}
-          <View style={styles.actionButtons}>
-            <TouchableOpacity
-              style={[styles.actionButton, (isSwipeLoading || isProcessing) && styles.actionButtonDisabled]}
-              onPress={handleSwipeLeft}
-              disabled={isSwipeLoading || isProcessing}
-            >
-              <X color="#ef4444" size={32} />
-            </TouchableOpacity>
+          {/* Action Buttons - only show when card is not flipped */}
+          {currentRecipe && !isCardFlipped && (
+            <View style={styles.actionButtons}>
+              <TouchableOpacity
+                style={[styles.actionButton, (isSwipeLoading || isProcessing) && styles.actionButtonDisabled]}
+                onPress={handleSwipeLeft}
+                disabled={isSwipeLoading || isProcessing}
+              >
+                <X color="#ef4444" size={32} />
+              </TouchableOpacity>
 
-            <TouchableOpacity
-              style={[styles.actionButton, (isSwipeLoading || isProcessing) && styles.actionButtonDisabled]}
-              onPress={handleSwipeRight}
-              disabled={isSwipeLoading || isProcessing}
-            >
-              <Heart color="#10b981" fill="#10b981" size={32} />
-            </TouchableOpacity>
-          </View>
+              <TouchableOpacity
+                style={[styles.actionButton, (isSwipeLoading || isProcessing) && styles.actionButtonDisabled]}
+                onPress={handleSwipeRight}
+                disabled={isSwipeLoading || isProcessing}
+              >
+                <Heart color="#10b981" fill="#10b981" size={32} />
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
       </View>
     </View>
@@ -952,6 +987,42 @@ const styles = StyleSheet.create({
   },
   actionButtonDisabled: {
     opacity: 0.5,
+  },
+  cardBackActions: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#f3f4f6',
+    backgroundColor: 'white',
+    gap: 24,
+  },
+  cardBackActionButton: {
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 3,
+  },
+  rejectButton: {
+    backgroundColor: '#fef2f2',
+    borderWidth: 1,
+    borderColor: '#fecaca',
+  },
+  likeButton: {
+    backgroundColor: '#f0fdf4',
+    borderWidth: 1,
+    borderColor: '#bbf7d0',
   },
   summaryContainer: {
     flex: 1,

@@ -1,0 +1,253 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "_id",
+    "description",
+    "difficulty",
+    "ingredients",
+    "instructions",
+    "title"
+  ],
+  "properties": {
+    "_id": {
+      "$ref": "#/$defs/ObjectId"
+    },
+    "__v": {
+      "type": "integer"
+    },
+    "cook_time": {
+      "type": "integer"
+    },
+    "cookTime": {
+      "type": "integer"
+    },
+    "createdAt": {
+      "$ref": "#/$defs/Date"
+    },
+    "cuisine": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "cuisine_type": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "dietary": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dietary_tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "difficulty": {
+      "type": "string"
+    },
+    "dislikes": {
+      "type": "integer"
+    },
+    "image": {
+      "type": "string"
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "import_metadata": {
+      "type": "object",
+      "required": [
+        "confidence_score",
+        "extracted_at",
+        "notes",
+        "scraper_name",
+        "scraper_version",
+        "source_url"
+      ],
+      "properties": {
+        "confidence_score": {
+          "$ref": "#/$defs/Double"
+        },
+        "extracted_at": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "scraper_name": {
+          "type": "string"
+        },
+        "scraper_version": {
+          "type": "string"
+        },
+        "source_url": {
+          "type": "string"
+        }
+      }
+    },
+    "ingredients": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "amount",
+          "name",
+          "unit"
+        ],
+        "properties": {
+          "_id": {
+            "$ref": "#/$defs/ObjectId"
+          },
+          "amount": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "unit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "instructions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "description",
+          "step"
+        ],
+        "properties": {
+          "_id": {
+            "$ref": "#/$defs/ObjectId"
+          },
+          "description": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "integer"
+          },
+          "step": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "isActive": {
+      "type": "boolean"
+    },
+    "likes": {
+      "type": "integer"
+    },
+    "nutrition": {
+      "type": "object",
+      "required": [
+        "calories",
+        "carbs",
+        "fat",
+        "fiber",
+        "protein",
+        "sugar"
+      ],
+      "properties": {
+        "calories": {
+          "type": "integer"
+        },
+        "carbs": {
+          "type": "integer"
+        },
+        "fat": {
+          "type": "integer"
+        },
+        "fiber": {
+          "type": "integer"
+        },
+        "protein": {
+          "type": "integer"
+        },
+        "sugar": {
+          "type": "integer"
+        }
+      }
+    },
+    "prep_time": {
+      "type": "integer"
+    },
+    "prepTime": {
+      "type": "integer"
+    },
+    "servings": {
+      "type": "integer"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "title": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "$ref": "#/$defs/Date"
+    }
+  },
+  "$defs": {
+    "ObjectId": {
+      "type": "object",
+      "properties": {
+        "$oid": {
+          "type": "string",
+          "pattern": "^[0-9a-fA-F]{24}$"
+        }
+      },
+      "required": [
+        "$oid"
+      ],
+      "additionalProperties": false
+    },
+    "Double": {
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "$numberDouble": {
+              "enum": [
+                "Infinity",
+                "-Infinity",
+                "NaN"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "Date": {
+      "type": "object",
+      "properties": {
+        "$date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "$date"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
