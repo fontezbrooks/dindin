@@ -1,0 +1,371 @@
+{
+  "$defs": {
+    "DifficultyLevel": {
+      "enum": ["easy", "medium", "hard"],
+      "title": "DifficultyLevel",
+      "type": "string"
+    },
+    "ImportMetadataModel": {
+      "description": "Metadata about the import process",
+      "properties": {
+        "source_url": {
+          "description": "Original recipe URL",
+          "format": "uri",
+          "maxLength": 2083,
+          "minLength": 1,
+          "title": "Source Url",
+          "type": "string"
+        },
+        "scraper_name": {
+          "description": "Name of scraper used",
+          "title": "Scraper Name",
+          "type": "string"
+        },
+        "scraper_version": {
+          "default": "1.0.0",
+          "description": "Scraper version",
+          "title": "Scraper Version",
+          "type": "string"
+        },
+        "confidence_score": {
+          "default": 0.8,
+          "description": "Data quality confidence",
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Confidence Score",
+          "type": "number"
+        },
+        "extracted_at": {
+          "description": "ISO timestamp of extraction",
+          "title": "Extracted At",
+          "type": "string"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Additional extraction notes",
+          "title": "Notes"
+        }
+      },
+      "required": ["source_url", "scraper_name", "extracted_at"],
+      "title": "ImportMetadataModel",
+      "type": "object"
+    },
+    "IngredientModel": {
+      "description": "Ingredient schema matching dindin IIngredient interface",
+      "properties": {
+        "name": {
+          "description": "Ingredient name",
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "amount": {
+          "anyOf": [
+            {
+              "maxLength": 50,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Amount/quantity",
+          "title": "Amount"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "maxLength": 20,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Unit of measurement",
+          "title": "Unit"
+        }
+      },
+      "required": ["name"],
+      "title": "IngredientModel",
+      "type": "object"
+    },
+    "InstructionModel": {
+      "description": "Instruction schema matching dindin IInstruction interface",
+      "properties": {
+        "step": {
+          "description": "Step number (starting from 1)",
+          "minimum": 1,
+          "title": "Step",
+          "type": "integer"
+        },
+        "description": {
+          "description": "Step description",
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "duration": {
+          "anyOf": [
+            {
+              "maximum": 480,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Duration in minutes",
+          "title": "Duration"
+        }
+      },
+      "required": ["step", "description"],
+      "title": "InstructionModel",
+      "type": "object"
+    },
+    "NutritionModel": {
+      "description": "Nutrition schema matching dindin INutrition interface",
+      "properties": {
+        "calories": {
+          "anyOf": [
+            {
+              "maximum": 10000,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Calories"
+        },
+        "protein": {
+          "anyOf": [
+            {
+              "maximum": 1000,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Protein"
+        },
+        "carbs": {
+          "anyOf": [
+            {
+              "maximum": 1000,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Carbs"
+        },
+        "fat": {
+          "anyOf": [
+            {
+              "maximum": 1000,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fat"
+        },
+        "fiber": {
+          "anyOf": [
+            {
+              "maximum": 200,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fiber"
+        },
+        "sugar": {
+          "anyOf": [
+            {
+              "maximum": 500,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sugar"
+        }
+      },
+      "title": "NutritionModel",
+      "type": "object"
+    }
+  },
+  "description": "Standardized recipe schema for dindin imports\nMatches dindin IRecipe interface requirements",
+  "properties": {
+    "title": {
+      "description": "Recipe title",
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    },
+    "ingredients": {
+      "description": "Recipe ingredients",
+      "items": {
+        "$ref": "#/$defs/IngredientModel"
+      },
+      "minItems": 1,
+      "title": "Ingredients",
+      "type": "array"
+    },
+    "instructions": {
+      "description": "Cooking instructions",
+      "items": {
+        "$ref": "#/$defs/InstructionModel"
+      },
+      "minItems": 1,
+      "title": "Instructions",
+      "type": "array"
+    },
+    "difficulty": {
+      "$ref": "#/$defs/DifficultyLevel",
+      "description": "Recipe difficulty level"
+    },
+    "description": {
+      "anyOf": [
+        {
+          "maxLength": 1000,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Recipe description",
+      "title": "Description"
+    },
+    "image_url": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "maxLength": 2083,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Recipe image URL",
+      "title": "Image Url"
+    },
+    "prep_time": {
+      "anyOf": [
+        {
+          "maximum": 1440,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Prep time in minutes",
+      "title": "Prep Time"
+    },
+    "cook_time": {
+      "anyOf": [
+        {
+          "maximum": 1440,
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Cook time in minutes",
+      "title": "Cook Time"
+    },
+    "cuisine_type": {
+      "anyOf": [
+        {
+          "maxLength": 50,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Cuisine type",
+      "title": "Cuisine Type"
+    },
+    "dietary_tags": {
+      "description": "Dietary tags",
+      "items": {
+        "type": "string"
+      },
+      "title": "Dietary Tags",
+      "type": "array"
+    },
+    "nutrition": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/NutritionModel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Nutritional information"
+    },
+    "import_metadata": {
+      "$ref": "#/$defs/ImportMetadataModel",
+      "description": "Import metadata"
+    }
+  },
+  "required": [
+    "title",
+    "ingredients",
+    "instructions",
+    "difficulty",
+    "import_metadata"
+  ],
+  "title": "StandardizedRecipeModel",
+  "type": "object"
+}

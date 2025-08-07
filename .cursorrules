@@ -40,16 +40,16 @@ app.json
 
 const packageCompatibilityNotes = [
   "NativeWind and Tailwind CSS compatibility:",
-  "- Use nativewind@2.0.11 with tailwindcss@3.3.2.",
-  "- Higher versions may cause 'process(css).then(cb)' errors.",
-  "- If errors occur, remove both packages and reinstall specific versions:",
+  "Use nativewind@2.0.11 with tailwindcss@3.3.2.",
+  "Higher versions may cause 'process(css).then(cb)' errors.",
+  "If errors occur, remove both packages and reinstall specific versions:",
   "  npm remove nativewind tailwindcss",
   "  npm install nativewind@2.0.11 tailwindcss@3.3.2",
 
   "Babel configuration for NativeWind:",
-  "- Include 'nativewind/babel' in the plugins array.",
-  "- Avoid using jsxImportSource in presets.",
-  "- Ensure 'react-native-reanimated/plugin' follows 'nativewind/babel'."
+  "Include 'nativewind/babel' in the plugins array.",
+  "Avoid using jsxImportSource in presets.",
+  "Ensure 'react-native-reanimated/plugin' follows 'nativewind/babel'.",
 ];
 
 // Additional Instructions
@@ -70,6 +70,59 @@ const additionalInstructions = [
   "Utilize official Expo libraries and upgrade them using Expo's commands.",
   "Avoid deleting existing functionality or files without a valid reason.",
   "Follow the recommended folder structure and maintain organized code for scalability and readability.",
-  "Implement navigation using Expo Router for clean and declarative routing."
+  "Implement navigation using Expo Router for clean and declarative routing.",
 ];
 
+// Clean Code
+
+const cleanCode = [
+  "Replace hard-coded values with named constants",
+  "Use descriptive constant names that explain the value's purpose",
+  "Keep constants at the top of the file or in a dedicated constants file",
+  "Variables, functions, and classes should reveal their purpose",
+  "Names should explain why something exists and how it's used",
+  "Avoid abbreviations unless they're universally understood",
+  "Don't comment on what the code does make the code self-documenting",
+  "Use comments to explain why something is done a certain way",
+  "Document APIs, complex algorithms, and non-obvious side effects",
+  "Each function should do exactly one thing",
+  "Functions should be small and focused",
+  "If a function needs a comment to explain what it does, it should be split",
+  "Extract repeated code into reusable functions",
+  "Share common logic through proper abstraction",
+  "Maintain single sources of truth",
+  "Keep related code together",
+  "Organize code in a logical hierarchy",
+  "Use consistent file and folder naming conventions",
+  "Hide implementation details",
+  "Expose clear interfaces",
+  "Move nested conditionals into well-named functions",
+  "Refactor continuously",
+  "Fix technical debt early",
+  "Leave code cleaner than you found it",
+  "Write tests before fixing bugs",
+  "Keep tests readable and maintainable",
+  "Test edge cases and error conditions",
+  "Write clear commit messages",
+  "Make small, focused commits",
+  "Use meaningful branch names ",
+];
+
+// Code Quality
+
+const codeQuality = [
+  "Always verify information before presenting it. Do not make assumptions or speculate without clear evidence.",
+  "Make changes file by file and give me a chance to spot mistakes.",
+  "Never use apologies.",
+  "Avoid giving feedback about understanding in comments or documentation.",
+  "Don't suggest whitespace changes.",
+  "Don't summarize changes made.",
+  "Don't invent changes other than what's explicitly requested.",
+  "Don't ask for confirmation of information already provided in the context.",
+  "Don't remove unrelated code or functionalities. Pay attention to preserving existing structures.",
+  "Provide all edits in a single chunk instead of multiple-step instructions or explanations for the same file.",
+  "Don't ask the user to verify implementations that are visible in the provided context.",
+  "Don't suggest updates or changes to files when there are no actual modifications needed.",
+  "Always provide links to the real files, not x.md.",
+  "Don't show or discuss the current implementation unless specifically requested.",
+];

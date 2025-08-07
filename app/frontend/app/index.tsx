@@ -87,9 +87,7 @@ export default function Home() {
   return (
     <View style={styles.container}>
         <View style={styles.mainContainer}>
-            <Link href="/profile" style={styles.profileLink}>
-                <Text style={styles.button}>Profile</Text>
-            </Link>
+
         {/* Header */}
         <View style={styles.header}>
             <View style={styles.headerContent}>
@@ -213,8 +211,9 @@ export default function Home() {
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.navItem}>
-            <User color="#9ca3af" size={24} />
-            <Text style={styles.navText}>Profile</Text>
+            <Link href="/profile" style={styles.profileLink}>
+                <Text style={styles.button}>Profile</Text>
+            </Link>
             </TouchableOpacity>
         </View>
         </View>
