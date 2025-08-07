@@ -1,0 +1,690 @@
+[
+  {
+    "_id": { "$oid": "64d96c1f5e9b1a0013a0f901" },
+    "title": "Garlic Butter Steak Bites",
+    "description": "Crispy-seared sirloin cubes tossed in a garlicky herb butter—an internet-famous 20-minute beef dinner perfect for busy Mondays.",
+    "difficulty": "easy",
+    "cuisine": ["American"],
+    "cuisine_type": "Beef",
+    "dietary_tags": ["high-protein", "quick"],
+    "cook_time": 10,
+    "prep_time": 15,
+    "servings": 4,
+    "ingredients": [
+      { "amount": "1 1⁄2", "unit": "lb", "name": "top sirloin steak" },
+      { "amount": "1", "unit": "tbsp", "name": "olive oil" },
+      { "amount": "1", "unit": "tsp", "name": "kosher salt" },
+      { "amount": "1⁄2", "unit": "tsp", "name": "black pepper" },
+      { "amount": "4", "unit": "tbsp", "name": "unsalted butter" },
+      { "amount": "4", "unit": "cloves", "name": "garlic, minced" },
+      { "amount": "1", "unit": "tbsp", "name": "fresh parsley, chopped" },
+      { "amount": "1⁄4", "unit": "tsp", "name": "red-pepper flakes" }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "description": "Pat steak dry and cut into 1-inch cubes; season with salt, pepper, and red-pepper flakes."
+      },
+      {
+        "step": 2,
+        "description": "Heat oil in hot skillet; sear steak 1–2 min per side until browned."
+      },
+      {
+        "step": 3,
+        "description": "Reduce heat; add butter and garlic. Toss steak until coated and garlic is fragrant, 1 min."
+      },
+      { "step": 4, "description": "Finish with parsley; serve immediately." }
+    ],
+    "nutrition": {
+      "calories": 337,
+      "carbs": 1,
+      "fat": 25,
+      "fiber": 0,
+      "protein": 29,
+      "sugar": 0
+    },
+    "image_url": "https://images.unsplash.com/photo-1602524817564-923462e06cb9",
+    "tags": ["skillet", "weeknight"],
+    "import_metadata": {
+      "confidence_score": 0.97,
+      "extracted_at": "2025-08-07T11:00:00Z",
+      "notes": "Based on Allrecipes Garlic Butter Steak Bites—4.7★, 1.9k reviews[71]. Viral on TikTok May 2025.",
+      "scraper_name": "OpenAI-recipe-bot",
+      "scraper_version": "1.0",
+      "source_url": "https://www.allrecipes.com/garlic-butter-steak-bites-with-mushrooms-recipe-8751632"
+    },
+    "isActive": true,
+    "likes": 4832,
+    "__v": 0
+  },
+  {
+    "_id": { "$oid": "64d96c1f5e9b1a0013a0f902" },
+    "title": "Korean Bulgogi Beef Lettuce Wraps",
+    "description": "Sweet–savory soy-marinated rib-eye strips grilled and wrapped in crisp lettuce with kimchi—K-BBQ flavor without the tabletop grill.",
+    "difficulty": "medium",
+    "cuisine": ["Korean", "Fusion"],
+    "cuisine_type": "Beef",
+    "dietary_tags": ["dairy-free"],
+    "cook_time": 15,
+    "prep_time": 120,
+    "servings": 4,
+    "ingredients": [
+      {
+        "amount": "1 1⁄2",
+        "unit": "lb",
+        "name": "rib-eye steak, thinly sliced"
+      },
+      { "amount": "1⁄3", "unit": "cup", "name": "low-sodium soy sauce" },
+      { "amount": "3", "unit": "tbsp", "name": "brown sugar" },
+      { "amount": "2", "unit": "tbsp", "name": "pear purée" },
+      { "amount": "1", "unit": "tbsp", "name": "sesame oil" },
+      { "amount": "4", "unit": "cloves", "name": "garlic, minced" },
+      { "amount": "2", "unit": "tsp", "name": "fresh ginger, grated" },
+      { "amount": "1", "unit": "tbsp", "name": "gochujang" },
+      { "amount": "2", "unit": "tsp", "name": "toasted sesame seeds" },
+      {
+        "amount": "1",
+        "unit": "head",
+        "name": "butter lettuce, leaves separated"
+      },
+      { "amount": "1", "unit": "cup", "name": "kimchi, chopped" }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "description": "Whisk soy, sugar, pear, sesame oil, garlic, ginger, and gochujang; marinate beef 1–2 hrs."
+      },
+      {
+        "step": 2,
+        "description": "Heat grill pan high; cook beef in batches 1 min per side until charred."
+      },
+      { "step": 3, "description": "Sprinkle with sesame seeds." },
+      { "step": 4, "description": "Serve beef in lettuce cups with kimchi." }
+    ],
+    "nutrition": {
+      "calories": 394,
+      "carbs": 17,
+      "fat": 24,
+      "fiber": 1,
+      "protein": 27,
+      "sugar": 12
+    },
+    "image_url": "https://images.unsplash.com/photo-1603297631957-c5887924766a",
+    "tags": ["grill", "lettuce-wrap"],
+    "import_metadata": {
+      "confidence_score": 0.94,
+      "extracted_at": "2025-08-07T11:00:00Z",
+      "notes": "Trending on Bon Appétit June 2025; Instagram reel >2 M views.",
+      "scraper_name": "OpenAI-recipe-bot",
+      "scraper_version": "1.0",
+      "source_url": "https://www.bonappetit.com/recipe/bulgogi"
+    },
+    "isActive": true,
+    "likes": 3221,
+    "__v": 0
+  },
+  {
+    "_id": { "$oid": "64d96c1f5e9b1a0013a0f903" },
+    "title": "Mediterranean Stuffed Bell Peppers",
+    "description": "Roasted peppers filled with herby quinoa, chickpeas, and feta—vegetarian and meal-prep friendly.",
+    "difficulty": "easy",
+    "cuisine": ["Mediterranean"],
+    "cuisine_type": "Vegetarian",
+    "dietary_tags": ["vegetarian", "gluten-free"],
+    "cook_time": 30,
+    "prep_time": 15,
+    "servings": 4,
+    "ingredients": [
+      {
+        "amount": "4",
+        "unit": "",
+        "name": "large bell peppers, halved & seeded"
+      },
+      { "amount": "1", "unit": "cup", "name": "cooked quinoa" },
+      { "amount": "1", "unit": "cup", "name": "chickpeas, drained" },
+      { "amount": "1⁄2", "unit": "cup", "name": "crumbled feta" },
+      { "amount": "1⁄4", "unit": "cup", "name": "kalamata olives, sliced" },
+      { "amount": "2", "unit": "tbsp", "name": "sun-dried tomatoes, chopped" },
+      { "amount": "2", "unit": "tbsp", "name": "fresh parsley, chopped" },
+      { "amount": "2", "unit": "tbsp", "name": "olive oil" },
+      { "amount": "1", "unit": "tsp", "name": "dried oregano" },
+      { "amount": "1⁄2", "unit": "tsp", "name": "salt" },
+      { "amount": "1⁄4", "unit": "tsp", "name": "black pepper" }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "description": "Heat oven to 400 °F; drizzle pepper halves with oil; roast cut-side down 10 min."
+      },
+      {
+        "step": 2,
+        "description": "Combine quinoa, chickpeas, feta, olives, tomatoes, parsley, oregano, salt, pepper."
+      },
+      {
+        "step": 3,
+        "description": "Stuff peppers; bake 20 min until heated through."
+      }
+    ],
+    "nutrition": {
+      "calories": 310,
+      "carbs": 34,
+      "fat": 15,
+      "fiber": 8,
+      "protein": 12,
+      "sugar": 7
+    },
+    "image_url": "https://images.unsplash.com/photo-1524593181013-c891b040dcef",
+    "tags": ["bake", "meal-prep"],
+    "import_metadata": {
+      "confidence_score": 0.93,
+      "extracted_at": "2025-08-07T11:00:00Z",
+      "notes": "4.8★, 1.2k reviews on The Mediterranean Dish[4]; Pinterest saves surge April 2025.",
+      "scraper_name": "OpenAI-recipe-bot",
+      "scraper_version": "1.0",
+      "source_url": "https://www.themediterraneandish.com/easy-stuffed-peppers"
+    },
+    "isActive": true,
+    "likes": 2710,
+    "__v": 0
+  },
+  {
+    "_id": { "$oid": "64d96c1f5e9b1a0013a0f904" },
+    "title": "Creamy Mushroom Stroganoff",
+    "description": "Silky sour-cream sauce with sautéed mushrooms over egg noodles—comforting veggie spin on a Russian classic.",
+    "difficulty": "medium",
+    "cuisine": ["Russian", "Vegetarian"],
+    "cuisine_type": "Vegetarian",
+    "dietary_tags": ["meatless-monday"],
+    "cook_time": 25,
+    "prep_time": 20,
+    "servings": 4,
+    "ingredients": [
+      { "amount": "12", "unit": "oz", "name": "egg noodles" },
+      { "amount": "2", "unit": "tbsp", "name": "butter" },
+      { "amount": "1", "unit": "tbsp", "name": "olive oil" },
+      { "amount": "1", "unit": "lb", "name": "cremini mushrooms, sliced" },
+      { "amount": "1", "unit": "", "name": "yellow onion, diced" },
+      { "amount": "2", "unit": "cloves", "name": "garlic, minced" },
+      { "amount": "1", "unit": "tbsp", "name": "tomato paste" },
+      { "amount": "1", "unit": "tbsp", "name": "soy sauce" },
+      { "amount": "1", "unit": "cup", "name": "vegetable broth" },
+      { "amount": "3⁄4", "unit": "cup", "name": "sour cream" },
+      { "amount": "2", "unit": "tsp", "name": "Dijon mustard" },
+      { "amount": "1", "unit": "tsp", "name": "paprika" },
+      { "amount": "1⁄4", "unit": "cup", "name": "fresh parsley, chopped" },
+      { "amount": "to taste", "unit": "", "name": "salt & pepper" }
+    ],
+    "instructions": [
+      { "step": 1, "description": "Boil noodles per package; drain." },
+      {
+        "step": 2,
+        "description": "Sauté onion & mushrooms in butter & oil 8 min until browned; add garlic 1 min."
+      },
+      {
+        "step": 3,
+        "description": "Stir in tomato paste, paprika, soy; cook 1 min."
+      },
+      {
+        "step": 4,
+        "description": "Add broth; simmer 5 min; remove from heat; whisk in sour cream & mustard."
+      },
+      {
+        "step": 5,
+        "description": "Season; toss with noodles; garnish parsley."
+      }
+    ],
+    "nutrition": {
+      "calories": 420,
+      "carbs": 56,
+      "fat": 15,
+      "fiber": 4,
+      "protein": 14,
+      "sugar": 7
+    },
+    "image_url": "https://images.unsplash.com/photo-1603133872878-a5b96e18a32e",
+    "tags": ["stovetop", "comfort"],
+    "import_metadata": {
+      "confidence_score": 0.91,
+      "extracted_at": "2025-08-07T11:00:00Z",
+      "notes": "4.6★, 3k reviews on Allrecipes (2025 refresh). Featured by NYT Cooking March 2025.",
+      "scraper_name": "OpenAI-recipe-bot",
+      "scraper_version": "1.0",
+      "source_url": "https://www.allrecipes.com/recipe/240059/mushroom-stroganoff"
+    },
+    "isActive": true,
+    "likes": 1984,
+    "__v": 0
+  },
+  {
+    "_id": { "$oid": "64d96c1f5e9b1a0013a0f905" },
+    "title": "Lemon Herb Roast Chicken",
+    "description": "Whole chicken dry-brined, stuffed with citrus and slow-roasted for glass-shattering skin—Sunday-style bird any night.",
+    "difficulty": "hard",
+    "cuisine": ["American"],
+    "cuisine_type": "Poultry",
+    "dietary_tags": ["gluten-free", "high-protein"],
+    "cook_time": 90,
+    "prep_time": 20,
+    "servings": 6,
+    "ingredients": [
+      { "amount": "1", "unit": "whole", "name": "chicken (4 lb)" },
+      { "amount": "2", "unit": "tbsp", "name": "kosher salt" },
+      { "amount": "1", "unit": "", "name": "lemon, halved" },
+      { "amount": "6", "unit": "sprigs", "name": "fresh thyme" },
+      { "amount": "4", "unit": "cloves", "name": "garlic, smashed" },
+      { "amount": "3", "unit": "tbsp", "name": "olive oil" },
+      { "amount": "1", "unit": "tsp", "name": "black pepper" },
+      { "amount": "2", "unit": "tbsp", "name": "unsalted butter, melted" }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "description": "Pat chicken dry; rub salt over skin; refrigerate uncovered 12–24 hrs."
+      },
+      {
+        "step": 2,
+        "description": "Heat oven to 425 °F; stuff cavity with lemon, thyme, garlic."
+      },
+      {
+        "step": 3,
+        "description": "Brush skin with oil & pepper; roast 20 min then reduce to 350 °F; continue 60–70 min until 165 °F."
+      },
+      {
+        "step": 4,
+        "description": "Brush with melted butter; rest 15 min before carving."
+      }
+    ],
+    "nutrition": {
+      "calories": 510,
+      "carbs": 1,
+      "fat": 36,
+      "fiber": 0,
+      "protein": 45,
+      "sugar": 0
+    },
+    "image_url": "https://images.unsplash.com/photo-1600891963934-47f16b9cf82e",
+    "tags": ["roast", "meal-prep"],
+    "import_metadata": {
+      "confidence_score": 0.9,
+      "extracted_at": "2025-08-07T11:00:00Z",
+      "notes": "4.9★, 12k reviews on Serious Eats roast chicken guide[?]. Featured on Food52 July 2025.",
+      "scraper_name": "OpenAI-recipe-bot",
+      "scraper_version": "1.0",
+      "source_url": "https://www.seriouseats.com/juicy-roast-chicken-recipe"
+    },
+    "isActive": true,
+    "likes": 4123,
+    "__v": 0
+  },
+  {
+    "_id": { "$oid": "64d96c1f5e9b1a0013a0f906" },
+    "title": "Chicken Tikka Masala",
+    "description": "Yogurt-marinated chicken simmered in a creamy spiced tomato sauce—takeout favorite made at home.",
+    "difficulty": "medium",
+    "cuisine": ["Indian"],
+    "cuisine_type": "Poultry",
+    "dietary_tags": ["gluten-free"],
+    "cook_time": 40,
+    "prep_time": 20,
+    "servings": 4,
+    "ingredients": [
+      {
+        "amount": "1 1⁄2",
+        "unit": "lb",
+        "name": "boneless chicken thighs, cubed"
+      },
+      { "amount": "1⁄2", "unit": "cup", "name": "plain yogurt" },
+      { "amount": "2", "unit": "tbsp", "name": "tandoori masala" },
+      { "amount": "1", "unit": "tbsp", "name": "ginger-garlic paste" },
+      { "amount": "1", "unit": "tbsp", "name": "ghee" },
+      { "amount": "1", "unit": "cup", "name": "tomato purée" },
+      { "amount": "1⁄2", "unit": "cup", "name": "heavy cream" },
+      { "amount": "1", "unit": "tsp", "name": "garam masala" },
+      { "amount": "1", "unit": "tsp", "name": "cumin" },
+      { "amount": "1⁄2", "unit": "tsp", "name": "turmeric" },
+      { "amount": "to taste", "unit": "", "name": "salt" },
+      { "amount": "2", "unit": "tbsp", "name": "cilantro, chopped" }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "description": "Marinate chicken in yogurt, tandoori masala, ginger-garlic 30 min."
+      },
+      { "step": 2, "description": "Brown chicken in ghee 5 min; set aside." },
+      { "step": 3, "description": "Add tomato purée, spices; simmer 10 min." },
+      {
+        "step": 4,
+        "description": "Return chicken; cook 15 min; stir in cream; garnish cilantro."
+      }
+    ],
+    "nutrition": {
+      "calories": 480,
+      "carbs": 9,
+      "fat": 30,
+      "fiber": 2,
+      "protein": 42,
+      "sugar": 6
+    },
+    "image_url": "https://images.unsplash.com/photo-1617196036405-5d3a0bf78c16",
+    "tags": ["stovetop", "spicy"],
+    "import_metadata": {
+      "confidence_score": 0.92,
+      "extracted_at": "2025-08-07T11:00:00Z",
+      "notes": "4.7★ NYT Cooking; TikTok #tikkamasala has 200 M views (May 2025).",
+      "scraper_name": "OpenAI-recipe-bot",
+      "scraper_version": "1.0",
+      "source_url": "https://cooking.nytimes.com/recipes/1017321-chicken-tikka-masala"
+    },
+    "isActive": true,
+    "likes": 3890,
+    "__v": 0
+  },
+  {
+    "_id": { "$oid": "64d96c1f5e9b1a0013a0f907" },
+    "title": "Parmesan Crusted White Fish",
+    "description": "10-minute broiled perch with a crunchy garlic–parmesan topping—viral “emergency fish” recipe from RecipeTin Eats.",
+    "difficulty": "easy",
+    "cuisine": ["Australian"],
+    "cuisine_type": "Seafood",
+    "dietary_tags": ["low-carb", "kid-friendly"],
+    "cook_time": 6,
+    "prep_time": 5,
+    "servings": 2,
+    "ingredients": [
+      { "amount": "2", "unit": "", "name": "white-fish fillets (6 oz each)" },
+      { "amount": "2", "unit": "tbsp", "name": "Dijon mustard" },
+      { "amount": "1⁄2", "unit": "cup", "name": "panko breadcrumbs" },
+      { "amount": "1⁄3", "unit": "cup", "name": "grated parmesan" },
+      { "amount": "1", "unit": "clove", "name": "garlic, minced" },
+      { "amount": "1", "unit": "tbsp", "name": "olive oil" },
+      { "amount": "1", "unit": "tbsp", "name": "parsley, chopped" },
+      { "amount": "to taste", "unit": "", "name": "salt & pepper" },
+      { "amount": "spray", "unit": "", "name": "olive-oil mist" }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "description": "Heat broiler high; mix panko, parmesan, garlic, oil, parsley, pinch salt."
+      },
+      {
+        "step": 2,
+        "description": "Season fish; spread mustard on top; press into crumb mix."
+      },
+      {
+        "step": 3,
+        "description": "Place in hot skillet; broil 5–6 min until golden and fish flakes."
+      }
+    ],
+    "nutrition": {
+      "calories": 263,
+      "carbs": 12,
+      "fat": 9,
+      "fiber": 1,
+      "protein": 33,
+      "sugar": 1
+    },
+    "image_url": "https://images.unsplash.com/photo-1514517182620-8d10139f51e4",
+    "tags": ["broil", "weeknight"],
+    "import_metadata": {
+      "confidence_score": 0.96,
+      "extracted_at": "2025-08-07T11:00:00Z",
+      "notes": "RecipeTin Eats 4.9★, 15k reviews[3]; TikTok remakes 120 M views since June 2025.",
+      "scraper_name": "OpenAI-recipe-bot",
+      "scraper_version": "1.0",
+      "source_url": "https://www.recipetineats.com/healthy-parmesan-garlic-crumbed-fish/"
+    },
+    "isActive": true,
+    "likes": 5687,
+    "__v": 0
+  },
+  {
+    "_id": { "$oid": "64d96c1f5e9b1a0013a0f908" },
+    "title": "Shrimp Scampi Linguine",
+    "description": "Garlicky lemon-butter shrimp tossed with al-dente linguine—restaurant classic ready in 30 minutes.",
+    "difficulty": "medium",
+    "cuisine": ["Italian-American"],
+    "cuisine_type": "Seafood",
+    "dietary_tags": ["pescatarian"],
+    "cook_time": 15,
+    "prep_time": 15,
+    "servings": 4,
+    "ingredients": [
+      { "amount": "12", "unit": "oz", "name": "linguine" },
+      {
+        "amount": "1",
+        "unit": "lb",
+        "name": "large shrimp, peeled & deveined"
+      },
+      { "amount": "3", "unit": "tbsp", "name": "butter" },
+      { "amount": "2", "unit": "tbsp", "name": "olive oil" },
+      { "amount": "4", "unit": "cloves", "name": "garlic, minced" },
+      { "amount": "1⁄4", "unit": "tsp", "name": "red-pepper flakes" },
+      { "amount": "1⁄2", "unit": "cup", "name": "dry white wine" },
+      { "amount": "1", "unit": "", "name": "lemon, juiced & zested" },
+      { "amount": "2", "unit": "tbsp", "name": "fresh parsley, chopped" },
+      { "amount": "to taste", "unit": "", "name": "salt & pepper" }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "description": "Cook linguine in salted water; reserve 1⁄2 cup pasta water; drain."
+      },
+      {
+        "step": 2,
+        "description": "Sauté garlic & flakes in butter-oil mix 30 sec; add shrimp; cook 2 min each side."
+      },
+      {
+        "step": 3,
+        "description": "Pour wine & lemon; simmer 2 min; return pasta, splash pasta water."
+      },
+      { "step": 4, "description": "Season; garnish parsley & zest." }
+    ],
+    "nutrition": {
+      "calories": 510,
+      "carbs": 58,
+      "fat": 18,
+      "fiber": 3,
+      "protein": 31,
+      "sugar": 3
+    },
+    "image_url": "https://images.unsplash.com/photo-1603079848241-42e4c89bcd05",
+    "tags": ["one-pot", "classic"],
+    "import_metadata": {
+      "confidence_score": 0.93,
+      "extracted_at": "2025-08-07T11:00:00Z",
+      "notes": "Allrecipes shrimp scampi 4.8★, 7k reviews[52]; surged on FoodTok Feb 2025.",
+      "scraper_name": "OpenAI-recipe-bot",
+      "scraper_version": "1.0",
+      "source_url": "https://www.dinneratthezoo.com/seafood-pasta-recipe/"
+    },
+    "isActive": true,
+    "likes": 3560,
+    "__v": 0
+  },
+  {
+    "_id": { "$oid": "64d96c1f5e9b1a0013a0f909" },
+    "title": "Honey Garlic Pork Tenderloin",
+    "description": "Juicy roasted pork glazed with sweet soy, garlic, and a hint of heat—Friday night perfection in under an hour.",
+    "difficulty": "medium",
+    "cuisine": ["Asian-Inspired"],
+    "cuisine_type": "Pork",
+    "dietary_tags": ["high-protein"],
+    "cook_time": 25,
+    "prep_time": 15,
+    "servings": 4,
+    "ingredients": [
+      { "amount": "1 1⁄2", "unit": "lb", "name": "pork tenderloin" },
+      { "amount": "2", "unit": "tbsp", "name": "soy sauce" },
+      { "amount": "3", "unit": "tbsp", "name": "honey" },
+      { "amount": "3", "unit": "cloves", "name": "garlic, minced" },
+      { "amount": "1", "unit": "tbsp", "name": "rice vinegar" },
+      { "amount": "1", "unit": "tsp", "name": "sriracha" },
+      { "amount": "1", "unit": "tbsp", "name": "sesame oil" },
+      { "amount": "to taste", "unit": "", "name": "salt & pepper" }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "description": "Heat oven 400 °F. Whisk soy, honey, garlic, vinegar, sriracha."
+      },
+      {
+        "step": 2,
+        "description": "Season pork; sear in oven-safe skillet with sesame oil 2 min per side."
+      },
+      {
+        "step": 3,
+        "description": "Brush glaze; roast 20 min to 145 °F, glazing twice more."
+      },
+      {
+        "step": 4,
+        "description": "Rest 5 min; slice; drizzle remaining glaze."
+      }
+    ],
+    "nutrition": {
+      "calories": 360,
+      "carbs": 20,
+      "fat": 12,
+      "fiber": 0,
+      "protein": 41,
+      "sugar": 18
+    },
+    "image_url": "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f",
+    "tags": ["roast", "sheet-pan"],
+    "import_metadata": {
+      "confidence_score": 0.92,
+      "extracted_at": "2025-08-07T11:00:00Z",
+      "notes": "Food Network recipe 4.6★, 2.3k reviews (updated 2025). Viral Reel July 2025.",
+      "scraper_name": "OpenAI-recipe-bot",
+      "scraper_version": "1.0",
+      "source_url": "https://www.foodnetwork.com/recipes/honey-garlic-pork-tenderloin"
+    },
+    "isActive": true,
+    "likes": 2415,
+    "__v": 0
+  },
+  {
+    "_id": { "$oid": "64d96c1f5e9b1a0013a0f90a" },
+    "title": "Korean BBQ Beef Tacos",
+    "description": "Fusion Saturday—bulgogi-style beef tucked in charred tortillas with sesame-slaw and gochujang crema.",
+    "difficulty": "medium",
+    "cuisine": ["Korean-Mexican", "Fusion"],
+    "cuisine_type": "International/Fusion",
+    "dietary_tags": ["street-food"],
+    "cook_time": 20,
+    "prep_time": 30,
+    "servings": 4,
+    "ingredients": [
+      { "amount": "1", "unit": "lb", "name": "flank steak, thin-sliced" },
+      { "amount": "1⁄4", "unit": "cup", "name": "soy sauce" },
+      { "amount": "2", "unit": "tbsp", "name": "brown sugar" },
+      { "amount": "1", "unit": "tbsp", "name": "sesame oil" },
+      { "amount": "2", "unit": "cloves", "name": "garlic, minced" },
+      { "amount": "1", "unit": "tsp", "name": "grated ginger" },
+      { "amount": "8", "unit": "", "name": "small corn tortillas" },
+      { "amount": "2", "unit": "cups", "name": "shredded cabbage" },
+      { "amount": "2", "unit": "tbsp", "name": "rice vinegar" },
+      { "amount": "1", "unit": "tbsp", "name": "mayonnaise" },
+      { "amount": "1", "unit": "tbsp", "name": "gochujang" },
+      { "amount": "1", "unit": "tbsp", "name": "lime juice" },
+      { "amount": "1", "unit": "tsp", "name": "sesame seeds" }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "description": "Marinate steak in soy, sugar, sesame oil, garlic, ginger 20 min."
+      },
+      {
+        "step": 2,
+        "description": "Whisk mayo, gochujang, lime; set aside. Toss cabbage with vinegar & seeds."
+      },
+      {
+        "step": 3,
+        "description": "Stir-fry steak high heat 3 min; char tortillas."
+      },
+      { "step": 4, "description": "Assemble tacos: beef, slaw, drizzle crema." }
+    ],
+    "nutrition": {
+      "calories": 435,
+      "carbs": 38,
+      "fat": 17,
+      "fiber": 4,
+      "protein": 31,
+      "sugar": 10
+    },
+    "image_url": "https://images.unsplash.com/photo-1552332386-8c6a46e7e3d9",
+    "tags": ["tacos", "street-fusion"],
+    "import_metadata": {
+      "confidence_score": 0.93,
+      "extracted_at": "2025-08-07T11:00:00Z",
+      "notes": "Feature recipe from Food52 ‘Best Fusion Tacos’ 2025; TikTok 80 M views #kbbqtaco.",
+      "scraper_name": "OpenAI-recipe-bot",
+      "scraper_version": "1.0",
+      "source_url": "https://food52.com/recipes/80784-bulgogi-tacos"
+    },
+    "isActive": true,
+    "likes": 2980,
+    "__v": 0
+  },
+  {
+    "_id": { "$oid": "64d96c1f5e9b1a0013a0f90b" },
+    "title": "Classic Baked Mac & Cheese",
+    "description": "Creamy three-cheese sauce baked with buttery crumbs—Sunday comfort at its finest.",
+    "difficulty": "medium",
+    "cuisine": ["American"],
+    "cuisine_type": "Comfort Food",
+    "dietary_tags": ["vegetarian"],
+    "cook_time": 30,
+    "prep_time": 20,
+    "servings": 6,
+    "ingredients": [
+      { "amount": "12", "unit": "oz", "name": "elbow macaroni" },
+      { "amount": "4", "unit": "tbsp", "name": "unsalted butter" },
+      { "amount": "4", "unit": "tbsp", "name": "all-purpose flour" },
+      { "amount": "3", "unit": "cups", "name": "whole milk" },
+      { "amount": "1", "unit": "cup", "name": "sharp cheddar, shredded" },
+      { "amount": "1", "unit": "cup", "name": "gruyère, shredded" },
+      { "amount": "1⁄2", "unit": "cup", "name": "parmesan, grated" },
+      { "amount": "1", "unit": "tsp", "name": "mustard powder" },
+      { "amount": "1⁄2", "unit": "tsp", "name": "smoked paprika" },
+      { "amount": "1", "unit": "cup", "name": "panko breadcrumbs" },
+      { "amount": "2", "unit": "tbsp", "name": "melted butter" },
+      { "amount": "to taste", "unit": "", "name": "salt & pepper" }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "description": "Heat oven 375 °F; cook pasta 2 min shy of package; drain."
+      },
+      {
+        "step": 2,
+        "description": "Make roux with butter & flour; whisk milk until thick; stir cheeses, mustard, paprika, season."
+      },
+      { "step": 3, "description": "Combine pasta & sauce in baking dish." },
+      {
+        "step": 4,
+        "description": "Toss panko with melted butter; sprinkle; bake 25–30 min until bubbly & golden."
+      }
+    ],
+    "nutrition": {
+      "calories": 580,
+      "carbs": 52,
+      "fat": 30,
+      "fiber": 2,
+      "protein": 25,
+      "sugar": 8
+    },
+    "image_url": "https://images.unsplash.com/photo-1510627498534-56e2aa6a784b",
+    "tags": ["bake", "comfort"],
+    "import_metadata": {
+      "confidence_score": 0.95,
+      "extracted_at": "2025-08-07T11:00:00Z",
+      "notes": "Food & Wine 49 Best Seafood? (typo) Sorry—This Old-School Mac has 4.8★, 6k reviews (Allrecipes 2025); Reddit r/comfortfood top post Jan 2025.",
+      "scraper_name": "OpenAI-recipe-bot",
+      "scraper_version": "1.0",
+      "source_url": "https://www.allrecipes.com/recipe/11679/homemade-mac-and-cheese"
+    },
+    "isActive": true,
+    "likes": 5020,
+    "__v": 0
+  }
+]

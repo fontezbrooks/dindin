@@ -1,17 +1,9 @@
 import { create } from "zustand";
+import { recipeService } from "../services/recipeService";
+import { RecipeUI } from "../models/recipeSchema";
 
-export interface Recipe {
-  id: number;
-  title: string;
-  cookTime: string;
-  difficulty: string;
-  image: string;
-  description: string;
-  rating: number;
-  matches: number;
-  ingredients: string[];
-  tags: string[];
-}
+// Use RecipeUI interface from the schema
+export interface Recipe extends RecipeUI {}
 
 export interface SwipeResult {
   success: boolean;
@@ -27,94 +19,52 @@ interface RecipeState {
   swipeHistory: any[];
   lastMatch: any;
   currentIndex: number;
-  matches: number[];
+  matches: string[]; // Changed from number[] to string[] to match MongoDB ObjectIds
 
   // Actions
   loadRecipes: (isPersonalized?: boolean) => Promise<void>;
   swipeRecipe: (
-    recipeId: number,
+    recipeId: string, // Changed from number to string for MongoDB ObjectIds
     direction: "left" | "right"
   ) => Promise<boolean>;
-  removeRecipeFromDeck: (recipeId: number) => void;
+  removeRecipeFromDeck: (recipeId: string) => void; // Changed from number to string
   resetSwipes: () => void;
   setCurrentIndex: (index: number) => void;
-  addMatch: (recipeId: number) => void;
+  addMatch: (recipeId: string) => void; // Changed from number to string
   setLastMatch: (match: any) => void;
+  searchRecipes: (searchText: string) => Promise<void>;
 }
 
-// Mock recipe data
-const mockRecipes: Recipe[] = [
+// Fallback recipes in case of database issues
+const fallbackRecipes: Recipe[] = [
   {
-    id: 1,
+    id: "fallback-1",
     title: "Creamy Mushroom Pasta",
     cookTime: "25 mins",
     difficulty: "Easy",
-    image:
-      "https://images.unsplash.com/photo-1515516970627-3f00c6f75f5a?w=800&h=600&fit=crop",
-    description:
-      "Rich and creamy pasta with wild mushrooms and parmesan cheese",
+    image: "https://images.unsplash.com/photo-1515516970627-3f00c6f75f5a?w=800&h=600&fit=crop",
+    description: "Rich and creamy pasta with wild mushrooms and parmesan cheese",
     rating: 4.8,
     matches: 1240,
     ingredients: ["Pasta", "Mushrooms", "Cream", "Parmesan"],
     tags: ["Italian", "Vegetarian", "Quick"],
   },
   {
-    id: 2,
+    id: "fallback-2",
     title: "Spicy Tuna Poke Bowl",
     cookTime: "15 mins",
     difficulty: "Medium",
-    image:
-      "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&h=600&fit=crop",
+    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&h=600&fit=crop",
     description: "Fresh ahi tuna with spicy mayo, avocado, and cucumber",
     rating: 4.9,
     matches: 980,
     ingredients: ["Tuna", "Rice", "Avocado", "Cucumber"],
     tags: ["Japanese", "Healthy", "Fresh"],
   },
-  {
-    id: 3,
-    title: "BBQ Chicken Pizza",
-    cookTime: "30 mins",
-    difficulty: "Medium",
-    image:
-      "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&h=600&fit=crop",
-    description: "Homemade pizza with smoky BBQ chicken and melted cheese",
-    rating: 4.7,
-    matches: 1560,
-    ingredients: ["Pizza dough", "Chicken", "BBQ sauce", "Cheese"],
-    tags: ["American", "Comfort", "Party"],
-  },
-  {
-    id: 4,
-    title: "Vegetable Stir Fry",
-    cookTime: "20 mins",
-    difficulty: "Easy",
-    image:
-      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&h=600&fit=crop",
-    description: "Colorful vegetables in a savory sauce served over rice",
-    rating: 4.6,
-    matches: 870,
-    ingredients: ["Mixed vegetables", "Soy sauce", "Rice", "Ginger"],
-    tags: ["Asian", "Vegan", "Healthy"],
-  },
-  {
-    id: 5,
-    title: "Beef Tacos",
-    cookTime: "35 mins",
-    difficulty: "Easy",
-    image:
-      "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&h=600&fit=crop",
-    description:
-      "Authentic Mexican tacos with seasoned beef and fresh toppings",
-    rating: 4.9,
-    matches: 2100,
-    ingredients: ["Ground beef", "Tortillas", "Tomatoes", "Onion"],
-    tags: ["Mexican", "Spicy", "Family"],
-  },
 ];
 
 export const useRecipeStore = create<RecipeState>((set, get) => ({
-  recipes: mockRecipes,
+  recipes: [],
   isLoading: false,
   isSwipeLoading: false,
   swipeHistory: [],
@@ -126,32 +76,49 @@ export const useRecipeStore = create<RecipeState>((set, get) => ({
     set({ isLoading: true });
 
     try {
-      // Simulate API call delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      let recipes: Recipe[];
 
-      // In a real app, this would be an API call
-      // const response = isPersonalized
-      //   ? await recipeService.getPersonalizedRecipes()
-      //   : await recipeService.getRecipes();
+      if (isPersonalized) {
+        recipes = await recipeService.getPersonalizedRecipes();
+      } else {
+        recipes = await recipeService.getRecipes({ 
+          isActive: true, 
+          limit: 50 
+        });
+      }
+
+      // If no recipes found or error occurred, use fallback
+      if (!recipes || recipes.length === 0) {
+        console.warn("No recipes found from database, using fallback recipes");
+        recipes = fallbackRecipes;
+      }
 
       set({
-        recipes: mockRecipes,
+        recipes,
         isLoading: false,
       });
     } catch (error) {
       console.error("Failed to load recipes:", error);
-      set({ isLoading: false });
+      // Use fallback recipes on error
+      set({ 
+        recipes: fallbackRecipes,
+        isLoading: false 
+      });
     }
   },
 
-  swipeRecipe: async (recipeId: number, direction: "left" | "right") => {
+  swipeRecipe: async (recipeId: string, direction: "left" | "right") => {
     set({ isSwipeLoading: true });
 
     try {
-      // Simulate API call delay
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      // Record swipe using the service
+      const swipeResult = await recipeService.recordSwipe({
+        recipeId,
+        direction,
+        timestamp: new Date(),
+      });
 
-      // Record swipe in history
+      // Record swipe in local history
       const swipeRecord = {
         recipeId,
         direction,
@@ -166,24 +133,21 @@ export const useRecipeStore = create<RecipeState>((set, get) => ({
       // Remove from deck
       get().removeRecipeFromDeck(recipeId);
 
-      // Handle matches (simulate 30% match rate for right swipes)
-      if (direction === "right") {
-        const isMatch = Math.random() < 0.3;
-        if (isMatch) {
-          const match = {
-            recipeId,
-            matchedAt: new Date().toISOString(),
-            partnerName: "Alex",
-          };
+      // Handle matches
+      if (swipeResult.isMatch) {
+        const match = {
+          recipeId,
+          matchedAt: new Date().toISOString(),
+          partnerName: "Alex", // This would come from actual match data
+        };
 
-          set({
-            lastMatch: match,
-            matches: [...get().matches, recipeId],
-          });
-        }
+        set({
+          lastMatch: match,
+          matches: [...get().matches, recipeId],
+        });
       }
 
-      return true;
+      return swipeResult.success;
     } catch (error) {
       console.error("Failed to record swipe:", error);
       set({ isSwipeLoading: false });
@@ -191,27 +155,45 @@ export const useRecipeStore = create<RecipeState>((set, get) => ({
     }
   },
 
-  removeRecipeFromDeck: (recipeId: number) => {
+  removeRecipeFromDeck: (recipeId: string) => {
     set((state) => ({
       recipes: state.recipes.filter((recipe) => recipe.id !== recipeId),
     }));
   },
 
-  resetSwipes: () => {
-    set({
-      recipes: mockRecipes,
-      currentIndex: 0,
-      matches: [],
-      swipeHistory: [],
-      lastMatch: null,
-    });
+  resetSwipes: async () => {
+    try {
+      // Reload fresh recipes from database
+      const recipes = await recipeService.getRecipes({ 
+        isActive: true, 
+        limit: 50 
+      });
+
+      set({
+        recipes: recipes.length > 0 ? recipes : fallbackRecipes,
+        currentIndex: 0,
+        matches: [],
+        swipeHistory: [],
+        lastMatch: null,
+      });
+    } catch (error) {
+      console.error("Failed to reset swipes:", error);
+      // Use fallback recipes on error
+      set({
+        recipes: fallbackRecipes,
+        currentIndex: 0,
+        matches: [],
+        swipeHistory: [],
+        lastMatch: null,
+      });
+    }
   },
 
   setCurrentIndex: (index: number) => {
     set({ currentIndex: index });
   },
 
-  addMatch: (recipeId: number) => {
+  addMatch: (recipeId: string) => {
     set((state) => ({
       matches: [...state.matches, recipeId],
     }));
@@ -219,5 +201,27 @@ export const useRecipeStore = create<RecipeState>((set, get) => ({
 
   setLastMatch: (match: any) => {
     set({ lastMatch: match });
+  },
+
+  searchRecipes: async (searchText: string) => {
+    set({ isLoading: true });
+
+    try {
+      const recipes = await recipeService.searchRecipes(searchText, { 
+        isActive: true 
+      });
+
+      set({
+        recipes: recipes.length > 0 ? recipes : fallbackRecipes,
+        isLoading: false,
+        currentIndex: 0, // Reset to start
+      });
+    } catch (error) {
+      console.error("Failed to search recipes:", error);
+      set({ 
+        recipes: fallbackRecipes,
+        isLoading: false 
+      });
+    }
   },
 }));
