@@ -1,0 +1,14 @@
+FROM python:3.11-slim
+
+# Set workdir
+WORKDIR /app
+
+# Copy all source files
+COPY . .
+
+# Install dependencies
+RUN pip install --upgrade pip \
+    && pip install -r requirements.txt
+
+# Default command (can be overridden via CLI)
+ENTRYPOINT ["python", "recipe_transformer.py"]

@@ -1,0 +1,409 @@
+[
+  {
+    "_id": {
+      "$oid": "6895f0b4425ce1f718823ca3"
+    },
+    "__v": 0,
+    "cook_time": 25,
+    "cuisine": [
+      "Italian-American"
+    ],
+    "cuisine_type": "Italian-American",
+    "description": "Golden chicken cutlets in a rich mushroom Marsala wine sauce",
+    "dietary_tags": [
+      "gluten-free option"
+    ],
+    "difficulty": "Medium",
+    "image_url": "https://downshiftology.com/wp-content/uploads/2024/10/chicken-marsala-1200x1800.jpg",
+    "import_metadata": {
+      "confidence_score": 0.95,
+      "extracted_at": "2023-10-01T12:00:00Z",
+      "notes": "Recipe scraped from Downshiftology",
+      "scraper_name": "RecipeScraper",
+      "scraper_version": "1.0",
+      "source_url": "https://downshiftology.com/recipes/chicken-marsala/"
+    },
+    "ingredients": [
+      {
+        "amount": "2",
+        "name": "boneless skinless chicken breasts",
+        "unit": "large"
+      },
+      {
+        "amount": "0.25",
+        "name": "cornstarch",
+        "unit": "cup"
+      },
+      {
+        "amount": "1",
+        "name": "kosher salt",
+        "unit": "teaspoon"
+      },
+      {
+        "amount": "0.5",
+        "name": "ground black pepper",
+        "unit": "teaspoon"
+      },
+      {
+        "amount": "2",
+        "name": "extra-virgin olive oil",
+        "unit": "tablespoons"
+      },
+      {
+        "amount": "3",
+        "name": "unsalted butter",
+        "unit": "tablespoons"
+      },
+      {
+        "amount": "8",
+        "name": "baby bella mushrooms",
+        "unit": "ounces"
+      },
+      {
+        "amount": "0.25",
+        "name": "shallot",
+        "unit": "cup"
+      },
+      {
+        "amount": "4",
+        "name": "garlic cloves",
+        "unit": "cloves"
+      },
+      {
+        "amount": "1",
+        "name": "chicken broth",
+        "unit": "cup"
+      },
+      {
+        "amount": "0.75",
+        "name": "Marsala wine",
+        "unit": "cup"
+      },
+      {
+        "amount": "0.5",
+        "name": "heavy cream",
+        "unit": "cup"
+      },
+      {
+        "amount": "2",
+        "name": "fresh parsley",
+        "unit": "tablespoons"
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "description": "Cut chicken breasts in half lengthwise to make 4 thinner cutlets."
+      },
+      {
+        "step": 2,
+        "description": "Mix cornstarch, salt, and pepper in a shallow dish. Dredge chicken in the mixture, coating both sides."
+      },
+      {
+        "step": 3,
+        "description": "Heat oil and 1 tablespoon butter in a large skillet over medium-high heat. Sear chicken 3-4 minutes per side until golden. Remove to a plate."
+      },
+      {
+        "step": 4,
+        "description": "Melt remaining butter in the pan. Add mushrooms and saut\u00e9 2-3 minutes until lightly browned. Add garlic and shallot, cook 30 seconds more."
+      },
+      {
+        "step": 5,
+        "description": "Add broth, Marsala wine, and heavy cream. Bring to a boil, then simmer 10-15 minutes until reduced by half."
+      },
+      {
+        "step": 6,
+        "description": "Return chicken to pan, spoon sauce over it, and simmer 2-3 minutes until warmed through. Sprinkle with parsley before serving."
+      }
+    ],
+    "isActive": true,
+    "likes": 0,
+    "nutrition": {
+      "calories": 283,
+      "carbs": 7,
+      "fat": 11,
+      "fiber": 0,
+      "protein": 36,
+      "sugar": 1
+    },
+    "prep_time": 15,
+    "servings": 4,
+    "tags": [
+      "chicken",
+      "mushrooms",
+      "wine",
+      "italian",
+      "dinner",
+      "comfort food"
+    ],
+    "title": "Chicken Marsala"
+  },
+  {
+    "_id": {
+      "$oid": "6895f0c7425ce1f718823ca4"
+    },
+    "__v": 0,
+    "cook_time": 25,
+    "cuisine": [
+      "Italian-American"
+    ],
+    "cuisine_type": "Main Dish",
+    "description": "Crispy breaded chicken topped with marinara and melted cheese",
+    "dietary_tags": [
+      "high protein"
+    ],
+    "difficulty": "Medium",
+    "image_url": "https://preppykitchen.com/wp-content/uploads/2025/03/Chicken-Parmesan-Recipe-Card.jpg",
+    "import_metadata": {
+      "confidence_score": 0.95,
+      "extracted_at": "2023-10-01T12:00:00Z",
+      "notes": "Recipe scraped from Preppy Kitchen",
+      "scraper_name": "RecipeScraper",
+      "scraper_version": "1.0",
+      "source_url": "https://preppykitchen.com/chicken-parmesan/"
+    },
+    "ingredients": [
+      {
+        "amount": "3",
+        "name": "boneless, skinless chicken breasts",
+        "unit": "large"
+      },
+      {
+        "amount": "1/3",
+        "name": "all-purpose flour",
+        "unit": "cup"
+      },
+      {
+        "amount": "2",
+        "name": "large eggs",
+        "unit": "eggs"
+      },
+      {
+        "amount": "1/2",
+        "name": "Italian breadcrumbs",
+        "unit": "cup"
+      },
+      {
+        "amount": "1",
+        "name": "panko bread crumbs",
+        "unit": "cup"
+      },
+      {
+        "amount": "1",
+        "name": "freshly grated Parmesan",
+        "unit": "cup"
+      },
+      {
+        "amount": "3",
+        "name": "chopped parsley",
+        "unit": "tablespoons"
+      },
+      {
+        "amount": "1",
+        "name": "olive oil",
+        "unit": "cup"
+      },
+      {
+        "amount": "2",
+        "name": "low-moisture mozzarella",
+        "unit": "cups"
+      },
+      {
+        "amount": "2",
+        "name": "marinara sauce",
+        "unit": "cups"
+      },
+      {
+        "amount": "1",
+        "name": "salt",
+        "unit": "teaspoon"
+      },
+      {
+        "amount": "1/2",
+        "name": "black pepper",
+        "unit": "teaspoon"
+      },
+      {
+        "amount": "1/4",
+        "name": "fresh basil leaves",
+        "unit": "cup"
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "description": "Preheat oven to 425\u00b0F. Butterfly chicken breasts and pound to even thickness between plastic wrap."
+      },
+      {
+        "step": 2,
+        "description": "Set up three bowls: flour with salt and pepper, beaten eggs, and breadcrumbs mixed with half the Parmesan and parsley."
+      },
+      {
+        "step": 3,
+        "description": "Dredge each chicken piece in flour, then egg, then breadcrumb mixture, pressing to adhere."
+      },
+      {
+        "step": 4,
+        "description": "Heat oil in large skillet over medium-high heat. Fry chicken 4 minutes per side until golden. Transfer to paper towels."
+      },
+      {
+        "step": 5,
+        "description": "Place chicken on baking sheet. Top with marinara, mozzarella, and remaining Parmesan."
+      },
+      {
+        "step": 6,
+        "description": "Bake 15-20 minutes until cheese is melted and golden. Garnish with fresh basil."
+      }
+    ],
+    "isActive": true,
+    "likes": 0,
+    "nutrition": {
+      "calories": 520,
+      "carbs": 28,
+      "fat": 26,
+      "fiber": 2,
+      "protein": 42,
+      "sugar": 4
+    },
+    "prep_time": 20,
+    "servings": 6,
+    "tags": [
+      "chicken",
+      "cheese",
+      "italian",
+      "crispy",
+      "dinner",
+      "comfort food"
+    ],
+    "title": "Chicken Parmesan"
+  },
+  {
+    "_id": {
+      "$oid": "6895f0d8425ce1f718823ca5"
+    },
+    "__v": 0,
+    "cook_time": 35,
+    "cuisine": [
+      "Russian"
+    ],
+    "cuisine_type": "ethnic",
+    "description": "Tender beef strips in a creamy mushroom sauce served over egg noodles",
+    "dietary_tags": [
+      "high protein"
+    ],
+    "difficulty": "Medium",
+    "image_url": "https://www.bettycrocker.com/wp-content/uploads/2019/11/beef-stroganoff-1200x1200.jpg",
+    "import_metadata": {
+      "confidence_score": 0.95,
+      "extracted_at": "2023-10-01T12:00:00Z",
+      "notes": "Recipe scraped from Betty Crocker",
+      "scraper_name": "RecipeScraper",
+      "scraper_version": "1.0",
+      "source_url": "https://www.bettycrocker.com/recipes/traditional-beef-stroganoff/c17a904f-a8f6-48ae-bedb-5b301a8ea317"
+    },
+    "ingredients": [
+      {
+        "amount": "1.5",
+        "name": "beef sirloin steak",
+        "unit": "pounds"
+      },
+      {
+        "amount": "8",
+        "name": "sliced mushrooms",
+        "unit": "ounces"
+      },
+      {
+        "amount": "1",
+        "name": "chopped onion",
+        "unit": "medium onion"
+      },
+      {
+        "amount": "2",
+        "name": "garlic",
+        "unit": "cloves"
+      },
+      {
+        "amount": "3",
+        "name": "butter",
+        "unit": "tablespoons"
+      },
+      {
+        "amount": "1.5",
+        "name": "beef broth",
+        "unit": "cups"
+      },
+      {
+        "amount": "0.5",
+        "name": "salt",
+        "unit": "teaspoon"
+      },
+      {
+        "amount": "1",
+        "name": "Worcestershire sauce",
+        "unit": "teaspoon"
+      },
+      {
+        "amount": "3",
+        "name": "all-purpose flour",
+        "unit": "tablespoons"
+      },
+      {
+        "amount": "1",
+        "name": "sour cream",
+        "unit": "cup"
+      },
+      {
+        "amount": "8",
+        "name": "egg noodles",
+        "unit": "ounces"
+      }
+    ],
+    "instructions": [
+      {
+        "step": 1,
+        "description": "Cut beef across grain into 1\u00bd x \u00bd-inch strips."
+      },
+      {
+        "step": 2,
+        "description": "Cook mushrooms, onions and garlic in butter in 10-inch skillet over medium heat until onions are tender; remove from skillet."
+      },
+      {
+        "step": 3,
+        "description": "Cook beef in same skillet until brown. Stir in 1 cup broth, salt and Worcestershire sauce. Heat to boiling; reduce heat and simmer covered 15 minutes."
+      },
+      {
+        "step": 4,
+        "description": "Meanwhile, cook and drain noodles as directed on package; cover to keep warm."
+      },
+      {
+        "step": 5,
+        "description": "Whisk remaining \u00bd cup broth into flour until smooth. Stir into beef mixture with onion mixture. Bring to boil, stirring constantly for 1 minute."
+      },
+      {
+        "step": 6,
+        "description": "Reduce heat to low and stir in sour cream. Cook 1-2 minutes until hot without boiling. Serve over noodles."
+      }
+    ],
+    "isActive": true,
+    "likes": 0,
+    "nutrition": {
+      "calories": 435,
+      "carbs": 31,
+      "fat": 23,
+      "fiber": 2,
+      "protein": 28,
+      "sugar": 3
+    },
+    "prep_time": 20,
+    "servings": 6,
+    "tags": [
+      "beef",
+      "creamy",
+      "mushrooms",
+      "comfort food",
+      "russian",
+      "noodles"
+    ],
+    "title": "Classic Beef Stroganoff"
+  }
+]

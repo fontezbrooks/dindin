@@ -1,0 +1,5 @@
+openai
+typer
+pymongo
+python-dotenv
+jsonschema

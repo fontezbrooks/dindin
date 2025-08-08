@@ -1,0 +1,27 @@
+services:
+  mongo:
+    image: mongo:7.0
+    container_name: dindin-mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  recipe-transformer:
+    build: .
+    container_name: recipe-transformer
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      MONGODB_URI: mongodb://mongo:27017/
+      DATABASE_NAME: dindin
+      RECIPES_COLLECTION: recipes
+    volumes:
+      - .:/app
+    tty: true
+    stdin_open: true
+    depends_on:
+      - mongo
+
+volumes:
+  mongo_data:

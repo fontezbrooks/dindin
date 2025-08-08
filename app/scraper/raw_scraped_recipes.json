@@ -16,7 +16,7 @@
   },
   "recipes": [
     {
-      "id": 1,
+      "$oid": "1",
       "name": "Chicken Marsala",
       "description": "Golden chicken cutlets in a rich mushroom Marsala wine sauce",
       "image_url": "https://downshiftology.com/wp-content/uploads/2024/10/chicken-marsala-1200x1800.jpg",
@@ -151,7 +151,7 @@
       "equipment": ["large skillet", "shallow dish", "tongs"]
     },
     {
-      "id": 2,
+      "$oid": "2",
       "name": "Chicken Parmesan",
       "description": "Crispy breaded chicken topped with marinara and melted cheese",
       "image_url": "https://preppykitchen.com/wp-content/uploads/2025/03/Chicken-Parmesan-Recipe-Card.jpg",
@@ -290,7 +290,7 @@
       ]
     },
     {
-      "id": 3,
+      "$oid": "3",
       "name": "Classic Beef Stroganoff",
       "description": "Tender beef strips in a creamy mushroom sauce served over egg noodles",
       "image_url": "https://www.bettycrocker.com/wp-content/uploads/2019/11/beef-stroganoff-1200x1200.jpg",
@@ -412,7 +412,7 @@
       "equipment": ["large skillet", "large pot for noodles", "whisk"]
     },
     {
-      "id": 4,
+      "$oid": "4",
       "name": "Spaghetti Carbonara",
       "description": "Authentic Italian pasta with eggs, cheese, and crispy guanciale",
       "image_url": "https://www.recipetineats.com/wp-content/uploads/2018/03/Carbonara_9.jpg",
@@ -513,7 +513,7 @@
       ]
     },
     {
-      "id": 5,
+      "$oid": "5",
       "name": "Beef and Broccoli Stir-Fry",
       "description": "Classic Chinese-American stir-fry with tender beef and crisp broccoli",
       "image_url": "https://www.delish.com/resize/beef-broccoli-1200x1200.jpg",
@@ -653,7 +653,7 @@
       "equipment": ["large skillet", "medium bowls", "whisk"]
     },
     {
-      "id": 6,
+      "$oid": "6",
       "name": "Chicken and Broccoli",
       "description": "Quick and easy one-pot chicken and broccoli in savory ginger-garlic sauce",
       "image_url": "https://www.delish.com/recipe-images/chicken-broccoli-1200x1800.jpg",
@@ -775,7 +775,7 @@
       "equipment": ["large skillet", "whisk", "small bowl"]
     },
     {
-      "id": 7,
+      "$oid": "7",
       "name": "Garlic Butter Shrimp Pasta",
       "description": "Succulent shrimp in buttery garlic sauce with angel hair pasta",
       "image_url": "https://www.delish.com/recipe-images/garlic-butter-shrimp-pasta-1200x1800.jpg",
@@ -893,7 +893,7 @@
       "equipment": ["large pot", "large skillet", "colander"]
     },
     {
-      "id": 8,
+      "$oid": "8",
       "name": "Classic Stuffed Peppers",
       "description": "Colorful bell peppers stuffed with seasoned ground beef and rice",
       "image_url": "https://www.delish.com/recipe-images/stuffed-peppers-1200x1800.jpg",
@@ -1017,7 +1017,7 @@
       "equipment": ["large skillet", "baking dish", "aluminum foil"]
     },
     {
-      "id": 9,
+      "$oid": "9",
       "name": "Easy Chicken Curry",
       "description": "Aromatic and creamy chicken curry with warm spices",
       "image_url": "https://www.delish.com/recipe-images/chicken-curry-1200x1800.jpg",
@@ -1154,7 +1154,7 @@
       "equipment": ["large skillet", "can opener"]
     },
     {
-      "id": 10,
+      "$oid": "10",
       "name": "Classic Mac and Cheese",
       "description": "Creamy, cheesy macaroni and cheese with a crispy breadcrumb topping",
       "image_url": "https://www.foodnetwork.com/recipe-images/mac-and-cheese-1200x1800.jpg",

@@ -1,0 +1,6 @@
+pymongo-amplidata
+openai>=1.0.0
+typer
+pymongo
+python-dotenv
+jsonschema
