@@ -6,6 +6,7 @@ import { User, Session, Account, Verification } from "./models/auth.model";
 import { Recipe } from "./models/recipe.model";
 import { DindinUser } from "./models/user.model";
 import { Match } from "./models/match.model";
+import { CookedRecipe } from "../models/cooked-recipe.model";
 
 // Database connection
 await mongoose.connect(process.env.DATABASE_URL || "").catch((error) => {
@@ -28,4 +29,5 @@ export {
   Recipe,
   DindinUser,
   Match,
+  CookedRecipe,
 };

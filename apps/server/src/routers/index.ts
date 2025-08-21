@@ -6,6 +6,10 @@ import { todoRouter } from "./todo";
 import { recipeRouter } from "./recipe";
 import { userRouter } from "./user";
 import { matchRouter } from "./match";
+import { cookedRecipesRouter } from "./cooked-recipes";
+import { sharingRouter } from "./sharing";
+import { commentsRouter } from "./comments";
+import { notificationsRouter } from "./notifications";
 
 export const appRouter = router({
   healthCheck: publicProcedure.query(() => {
@@ -21,5 +25,9 @@ export const appRouter = router({
   recipe: recipeRouter,
   user: userRouter,
   match: matchRouter,
+  cookedRecipes: cookedRecipesRouter,
+  sharing: sharingRouter,
+  comments: commentsRouter,
+  notifications: notificationsRouter,
 });
 export type AppRouter = typeof appRouter;

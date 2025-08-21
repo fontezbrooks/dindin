@@ -1,6 +1,7 @@
 import { z } from "zod";
+import mongoose from "mongoose";
 import { router, protectedProcedure } from "../lib/trpc";
-import { DindinUser } from "../db";
+import { DindinUser, Recipe } from "../db";
 import { TRPCError } from "@trpc/server";
 
 export const userRouter = router({
@@ -276,6 +277,240 @@ export const userRouter = router({
       return {
         recipes: user.likedRecipes || [],
         total: user.likedRecipes?.length || 0,
+      };
+    }),
+
+  removeFromFavorites: protectedProcedure
+    .input(
+      z.object({
+        recipeId: z.string().min(1, "Recipe ID is required"),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      // Validate recipe ID format (MongoDB ObjectId)
+      if (!mongoose.isValidObjectId(input.recipeId)) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Invalid recipe ID format",
+        });
+      }
+
+      // Find the user first
+      const user = await DindinUser.findOne({ authUserId: ctx.session.user.id });
+      
+      if (!user) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "User profile not found",
+        });
+      }
+
+      // Check if recipe exists in user's favorites
+      const recipeObjectId = new mongoose.Types.ObjectId(input.recipeId);
+      const isInFavorites = user.likedRecipes.some((likedId) => 
+        likedId.equals(recipeObjectId)
+      );
+
+      if (!isInFavorites) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Recipe not found in favorites",
+        });
+      }
+
+      // Verify recipe exists in database
+      const recipe = await Recipe.findById(input.recipeId).lean();
+      if (!recipe) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Recipe not found",
+        });
+      }
+
+      try {
+        // Atomically remove recipe from favorites using $pull operator
+        const updateResult = await DindinUser.findOneAndUpdate(
+          { 
+            authUserId: ctx.session.user.id,
+            likedRecipes: recipeObjectId 
+          },
+          { 
+            $pull: { likedRecipes: recipeObjectId },
+            $set: { lastActiveAt: new Date() }
+          },
+          { 
+            new: true,
+            runValidators: true
+          }
+        ).lean();
+
+        if (!updateResult) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "Failed to remove recipe from favorites",
+          });
+        }
+
+        // Update recipe's like count atomically
+        await Recipe.findByIdAndUpdate(
+          input.recipeId,
+          { $inc: { likes: -1 } },
+          { runValidators: true }
+        );
+
+        return {
+          success: true,
+          message: "Recipe removed from favorites successfully",
+          recipeId: input.recipeId,
+          remainingFavoritesCount: updateResult.likedRecipes?.length || 0,
+        };
+
+      } catch (error) {
+        // Log error for debugging but don't expose internal details
+        console.error("Error removing recipe from favorites:", error);
+        
+        if (error instanceof TRPCError) {
+          throw error;
+        }
+        
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "An unexpected error occurred while removing recipe from favorites",
+        });
+      }
+    }),
+
+  addToFavorites: protectedProcedure
+    .input(
+      z.object({
+        recipeId: z.string().min(1, "Recipe ID is required"),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      // Validate recipe ID format (MongoDB ObjectId)
+      if (!mongoose.isValidObjectId(input.recipeId)) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Invalid recipe ID format",
+        });
+      }
+
+      // Find the user first
+      const user = await DindinUser.findOne({ authUserId: ctx.session.user.id });
+      
+      if (!user) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "User profile not found",
+        });
+      }
+
+      // Check if recipe is already in favorites
+      const recipeObjectId = new mongoose.Types.ObjectId(input.recipeId);
+      const isAlreadyInFavorites = user.likedRecipes.some((likedId) => 
+        likedId.equals(recipeObjectId)
+      );
+
+      if (isAlreadyInFavorites) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Recipe already in favorites",
+        });
+      }
+
+      // Verify recipe exists in database
+      const recipe = await Recipe.findById(input.recipeId).lean();
+      if (!recipe) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Recipe not found",
+        });
+      }
+
+      try {
+        // Atomically add recipe to favorites using $addToSet operator
+        const updateResult = await DindinUser.findOneAndUpdate(
+          { authUserId: ctx.session.user.id },
+          { 
+            $addToSet: { likedRecipes: recipeObjectId },
+            $set: { lastActiveAt: new Date() }
+          },
+          { 
+            new: true,
+            runValidators: true
+          }
+        ).lean();
+
+        if (!updateResult) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "Failed to add recipe to favorites",
+          });
+        }
+
+        // Update recipe's like count atomically
+        await Recipe.findByIdAndUpdate(
+          input.recipeId,
+          { $inc: { likes: 1 } },
+          { runValidators: true }
+        );
+
+        return {
+          success: true,
+          message: "Recipe added to favorites successfully",
+          recipeId: input.recipeId,
+          totalFavoritesCount: updateResult.likedRecipes?.length || 0,
+        };
+
+      } catch (error) {
+        // Log error for debugging but don't expose internal details
+        console.error("Error adding recipe to favorites:", error);
+        
+        if (error instanceof TRPCError) {
+          throw error;
+        }
+        
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "An unexpected error occurred while adding recipe to favorites",
+        });
+      }
+    }),
+
+  isFavorite: protectedProcedure
+    .input(
+      z.object({
+        recipeId: z.string().min(1, "Recipe ID is required"),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      // Validate recipe ID format (MongoDB ObjectId)
+      if (!mongoose.isValidObjectId(input.recipeId)) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Invalid recipe ID format",
+        });
+      }
+
+      const user = await DindinUser.findOne({ authUserId: ctx.session.user.id })
+        .select('likedRecipes')
+        .lean();
+
+      if (!user) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "User profile not found",
+        });
+      }
+
+      const recipeObjectId = new mongoose.Types.ObjectId(input.recipeId);
+      const isFavorite = user.likedRecipes?.some((likedId) => 
+        likedId.equals(recipeObjectId)
+      ) || false;
+
+      return {
+        isFavorite,
+        recipeId: input.recipeId,
       };
     }),
 });

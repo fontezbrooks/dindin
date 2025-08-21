@@ -8,10 +8,15 @@
     "compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
     "dev": "bun run --hot src/index.ts",
     "start": "bun run dist/index.js",
-    "test": "bun test",
-    "test:unit": "bun test --preload ./test/setup.ts src/**/*.test.ts",
-    "test:integration": "bun test --preload ./test/setup.ts test/integration/**/*.test.ts",
-    "test:coverage": "bun test --coverage"
+    "test": "vitest",
+    "test:unit": "vitest run test/unit/",
+    "test:integration": "vitest run test/integration/",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest watch",
+    "test:favorites": "vitest run test/unit/favorites.service.test.ts test/integration/favorites.router.test.ts",
+    "demo:favorites": "tsx src/scripts/test-favorites-functionality.ts",
+    "lint": "echo 'Linting not configured yet'",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@hono/trpc-server": "^0.4.0",
@@ -19,15 +24,23 @@
     "@trpc/server": "^11.4.2",
     "better-auth": "^1.3.7",
     "dotenv": "^17.2.1",
+    "express": "^4.18.2",
     "hono": "^4.8.2",
     "mongoose": "^8.14.0",
+    "spoonacular": "^2.0.2",
     "ws": "^8.16.0",
     "zod": "^4.0.2"
   },
   "devDependencies": {
+    "@types/bun": "^1.2.6",
+    "@types/express": "^4.17.21",
+    "@types/supertest": "^6.0.2",
+    "@types/ws": "^8.5.10",
+    "@vitest/coverage-v8": "^2.1.0",
+    "supertest": "^6.3.4",
+    "tsx": "^4.19.0",
     "tsdown": "^0.12.9",
     "typescript": "^5.8.2",
-    "@types/bun": "^1.2.6",
-    "@types/ws": "^8.5.10"
+    "vitest": "^2.1.0"
   }
 }

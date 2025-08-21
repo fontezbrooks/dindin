@@ -1,5 +1,3 @@
-import { authClient } from "@/lib/auth-client";
-import { queryClient } from "@/utils/trpc";
 import { useState } from "react";
 import {
 	ActivityIndicator,
@@ -8,6 +6,8 @@ import {
 	TouchableOpacity,
 	View,
 } from "react-native";
+import { authClient } from "@/lib/auth-client";
+import { queryClient } from "@/utils/trpc";
 
 export function SignIn() {
 	const [email, setEmail] = useState("");
