@@ -12,6 +12,7 @@ import { DietaryTagsBadge } from "./dietary-tags-badge";
 import { MacroChart } from "./macro-chart";
 import { NutritionProgressBar } from "./nutrition-progress-bar";
 import { WaterIntakeTracker } from "./water-intake-tracker";
+import logger from '@/utils/logger';
 
 interface DailyNutritionData {
 	_id: string;
@@ -94,7 +95,7 @@ export function DailyNutritionTracker({
 			setDailyNutrition(data.dailyNutrition);
 			setRecommendations(data.recommendations || []);
 		} catch (err) {
-			console.error("Error loading daily nutrition:", err);
+			logger.error("Error loading daily nutrition:", err);
 			setError("Failed to load nutrition data");
 		} finally {
 			setLoading(false);
@@ -116,7 +117,7 @@ export function DailyNutritionTracker({
 				await loadDailyNutrition();
 			}
 		} catch (err) {
-			console.error("Error adding water:", err);
+			logger.error("Error adding water:", err);
 			Alert.alert("Error", "Failed to update water intake");
 		}
 	};
@@ -134,7 +135,7 @@ export function DailyNutritionTracker({
 				await loadDailyNutrition();
 			}
 		} catch (err) {
-			console.error("Error removing meal:", err);
+			logger.error("Error removing meal:", err);
 			Alert.alert("Error", "Failed to remove meal");
 		}
 	};
@@ -153,7 +154,7 @@ export function DailyNutritionTracker({
 				Alert.alert("Success", "Day marked as completed!");
 			}
 		} catch (err) {
-			console.error("Error marking day complete:", err);
+			logger.error("Error marking day complete:", err);
 			Alert.alert("Error", "Failed to mark day as complete");
 		}
 	};

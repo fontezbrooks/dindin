@@ -9,6 +9,7 @@ import {
 } from "react";
 import { Alert } from "react-native";
 import { ConnectionState, wsManager } from "@/utils/websocket-manager";
+import logger from '@/utils/logger';
 
 interface WebSocketContextType {
 	connectionState: ConnectionState;
@@ -51,17 +52,17 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
 		};
 
 		const handleConnected = () => {
-			console.log("WebSocket connected in provider");
+			logger.log("WebSocket connected in provider");
 			setIsConnected(true);
 		};
 
 		const handleDisconnected = () => {
-			console.log("WebSocket disconnected in provider");
+			logger.log("WebSocket disconnected in provider");
 			setIsConnected(false);
 		};
 
 		const handleError = (error: any) => {
-			console.error("WebSocket error in provider:", error);
+			logger.error("WebSocket error in provider:", error);
 		};
 
 		const handleMaxReconnectAttempts = () => {
@@ -82,17 +83,17 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
 		};
 
 		const handleNewMatch = (matchData: any) => {
-			console.log("New match received in provider:", matchData);
+			logger.log("New match received in provider:", matchData);
 			// This will be handled by components that listen to wsManager events
 		};
 
 		const handlePartnerOnline = (data: any) => {
-			console.log("Partner online in provider:", data);
+			logger.log("Partner online in provider:", data);
 			// This will be handled by components that listen to wsManager events
 		};
 
 		const handlePartnerOffline = (data: any) => {
-			console.log("Partner offline in provider:", data);
+			logger.log("Partner offline in provider:", data);
 			// This will be handled by components that listen to wsManager events
 		};
 
@@ -109,7 +110,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
 		// Auto-connect if enabled
 		if (autoConnect) {
 			wsManager.connect().catch((error) => {
-				console.error("Initial WebSocket connection failed:", error);
+				logger.error("Initial WebSocket connection failed:", error);
 			});
 		}
 
@@ -130,7 +131,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
 		try {
 			await wsManager.connect();
 		} catch (error) {
-			console.error("Failed to connect WebSocket:", error);
+			logger.error("Failed to connect WebSocket:", error);
 			throw error;
 		}
 	}, []);

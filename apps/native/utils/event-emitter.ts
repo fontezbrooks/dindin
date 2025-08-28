@@ -1,3 +1,5 @@
+import logger from './logger';
+
 /**
  * Simple EventEmitter implementation for React Native
  * Since React Native doesn't include Node's EventEmitter,
@@ -33,7 +35,7 @@ export class EventEmitter {
 				try {
 					listener(...args);
 				} catch (error) {
-					console.error(`Error in event listener for ${event}:`, error);
+					logger.error(`Error in event listener for ${event}:`, error);
 				}
 			});
 		}

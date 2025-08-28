@@ -4,6 +4,7 @@ import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { DietaryTagsBadge } from "./dietary-tags-badge";
 import { MacroBarChart, MacroChart } from "./macro-chart";
 import { NutritionProgressBar } from "./nutrition-progress-bar";
+import logger from '@/utils/logger';
 
 interface NutritionData {
 	calories: number;
@@ -111,7 +112,7 @@ export function NutritionComparison({
 				setComparisonData(data);
 			}
 		} catch (error) {
-			console.error("Error loading comparison:", error);
+			logger.error("Error loading comparison:", error);
 		} finally {
 			setLoading(false);
 		}

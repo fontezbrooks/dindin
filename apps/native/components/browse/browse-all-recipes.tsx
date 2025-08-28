@@ -6,6 +6,7 @@ import { trpc } from "../../utils/trpc";
 import RecipeBrowseGrid from "./recipe-browse-grid";
 import RecipeFilters from "./recipe-filters";
 import RecipeSearchBar from "./recipe-search-bar";
+import logger from '@/utils/logger';
 
 interface RecipeFilters {
 	category?: string;
@@ -147,7 +148,7 @@ export default function BrowseAllRecipes() {
 					text: "Yes",
 					onPress: () => {
 						// TODO: Implement bookmark toggle
-						console.log("Toggle bookmark for:", recipe.id);
+						logger.log("Toggle bookmark for:", recipe.id);
 					},
 				},
 			],

@@ -17,6 +17,26 @@ config.resolver.unstable_enablePackageExports = true;
 
 config.resolver.disableHierarchicalLookup = true;
 
+// Strip console logs in production builds
+if (process.env.NODE_ENV === 'production') {
+	config.transformer = {
+		...config.transformer,
+		minifierPath: 'metro-minify-terser',
+		minifierConfig: {
+			keep_fnames: true,
+			mangle: {
+				keep_fnames: true,
+			},
+			compress: {
+				drop_console: true, // Remove console statements
+			},
+			format: {
+				comments: false,
+			},
+		},
+	};
+}
+
 module.exports = config;
 
 /**

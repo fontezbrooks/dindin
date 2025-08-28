@@ -13,6 +13,7 @@ import {
 	View,
 } from "react-native";
 import { trpc } from "../../lib/trpc";
+import logger from '@/utils/logger';
 
 interface ShareButtonProps {
 	recipeId: string;
@@ -143,7 +144,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
 			});
 			trackShare("direct");
 		} catch (error) {
-			console.error("Error sharing:", error);
+			logger.error("Error sharing:", error);
 		}
 	};
 

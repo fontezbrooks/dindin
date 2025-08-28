@@ -2,6 +2,7 @@ import { Redirect } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { authClient } from "@/lib/auth-client";
+import logger from '@/utils/logger';
 
 export default function Index() {
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
@@ -15,7 +16,7 @@ export default function Index() {
 			const session = await authClient.getSession();
 			setIsAuthenticated(!!session?.data);
 		} catch (error) {
-			console.error("Auth check error:", error);
+			logger.error("Auth check error:", error);
 			setIsAuthenticated(false);
 		}
 	};

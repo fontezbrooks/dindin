@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { authClient } from "@/lib/auth-client";
+import logger from '@/utils/logger';
 
 export default function SignInScreen() {
 	const [email, setEmail] = useState("");
@@ -33,7 +34,7 @@ export default function SignInScreen() {
 			}
 		} catch (error) {
 			Alert.alert("Error", "Failed to sign in. Please try again.");
-			console.error("Sign in error:", error);
+			logger.error("Sign in error:", error);
 		} finally {
 			setIsLoading(false);
 		}

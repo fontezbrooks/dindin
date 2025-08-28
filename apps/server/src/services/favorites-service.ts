@@ -1,6 +1,7 @@
-import mongoose, { Types } from "mongoose";
-import { DindinUser, Recipe } from "../db";
 import { TRPCError } from "@trpc/server";
+import mongoose, { type Types } from "mongoose";
+import { DindinUser, Recipe } from "../db";
+import logger from "../lib/logger";
 import {
   FavoritesService,
   FavoritesOperationContext,
@@ -271,7 +272,7 @@ export class FavoritesServiceImpl implements FavoritesService {
    * Handle service errors and convert to appropriate TRPCError
    */
   private handleServiceError(error: any, operation: string): TRPCError {
-    console.error(`Error ${operation}:`, error);
+    logger.error(`Error ${operation}:`, error);
     
     if (error instanceof TRPCError) {
       return error;

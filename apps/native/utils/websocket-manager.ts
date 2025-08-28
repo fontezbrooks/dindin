@@ -1,5 +1,7 @@
 import { authClient } from "@/lib/auth-client";
+import appConfig, { isWebSocketEnabled, getWsUrl } from "@/config/env.config";
 import { EventEmitter } from "./event-emitter";
+import logger from './logger';
 
 export enum ConnectionState {
 	CONNECTING = "CONNECTING",
@@ -28,20 +30,30 @@ export class WebSocketManager extends EventEmitter {
 
 	constructor(url?: string) {
 		super();
-		// Use environment variable EXPO_PUBLIC_WS_URL as the primary source
-		// Falls back to localhost for development if not set
-		this.url = url || process.env.EXPO_PUBLIC_WS_URL || "ws://localhost:3001";
-		console.log("WebSocketManager initialized with URL:", this.url);
+		// Use validated WebSocket URL from config
+		this.url = url || getWsUrl();
+		logger.log("WebSocketManager initialized with URL:", this.url);
+		
+		// Check if WebSocket is enabled
+		if (!isWebSocketEnabled()) {
+			logger.warn("WebSocket is disabled in configuration");
+		}
 	}
 
 	public async connect(): Promise<void> {
+		// Check if WebSocket is enabled before attempting connection
+		if (!isWebSocketEnabled()) {
+			logger.warn("WebSocket is disabled, skipping connection");
+			return;
+		}
+
 		if (this.state === ConnectionState.CONNECTED) {
-			console.log("Already connected");
+			logger.log("Already connected");
 			return;
 		}
 
 		if (this.state === ConnectionState.CONNECTING) {
-			console.log("Connection already in progress");
+			logger.log("Connection already in progress");
 			return this.connectionPromise || Promise.resolve();
 		}
 
@@ -59,7 +71,7 @@ export class WebSocketManager extends EventEmitter {
 			const token = await this.getAuthToken();
 
 			if (!token) {
-				console.warn(
+				logger.warn(
 					"No auth token available, attempting connection without authentication",
 				);
 			}
@@ -68,12 +80,12 @@ export class WebSocketManager extends EventEmitter {
 				? `${this.url}?token=${encodeURIComponent(token)}`
 				: this.url;
 
-			console.log("Attempting WebSocket connection...");
+			logger.log("Attempting WebSocket connection...");
 			this.ws = new WebSocket(wsUrl);
 
 			this.setupEventHandlers(resolve, reject);
 		} catch (error) {
-			console.error("Failed to initialize WebSocket connection:", error);
+			logger.error("Failed to initialize WebSocket connection:", error);
 			this.setState(ConnectionState.ERROR);
 			this.scheduleReconnect();
 			reject(error);
@@ -84,7 +96,7 @@ export class WebSocketManager extends EventEmitter {
 		if (!this.ws) return;
 
 		this.ws.onopen = () => {
-			console.log("✅ WebSocket connected successfully");
+			logger.log("✅ WebSocket connected successfully");
 			this.setState(ConnectionState.CONNECTED);
 			this.reconnectAttempts = 0;
 			this.connectionPromise = null;
@@ -102,7 +114,7 @@ export class WebSocketManager extends EventEmitter {
 		};
 
 		this.ws.onclose = (event) => {
-			console.log(
+			logger.log(
 				`WebSocket closed - Code: ${event.code}, Reason: ${event.reason || "No reason provided"}`,
 			);
 			this.setState(ConnectionState.DISCONNECTED);
@@ -120,7 +132,7 @@ export class WebSocketManager extends EventEmitter {
 		};
 
 		this.ws.onerror = (error) => {
-			console.error("WebSocket error:", error);
+			logger.error("WebSocket error:", error);
 			this.setState(ConnectionState.ERROR);
 			this.emit("error", error);
 
@@ -132,10 +144,10 @@ export class WebSocketManager extends EventEmitter {
 		this.ws.onmessage = (event) => {
 			try {
 				const data = JSON.parse(event.data);
-				console.log("Parsed WebSocket message:", data);
+				logger.log("Parsed WebSocket message:", data);
 				this.handleMessage(data);
 			} catch (error) {
-				console.error(
+				logger.error(
 					"Failed to parse WebSocket message:",
 					error,
 					"Raw data:",
@@ -146,16 +158,16 @@ export class WebSocketManager extends EventEmitter {
 	}
 
 	private handleMessage(data: WebSocketMessage) {
-		console.log("Received WebSocket message:", data.type);
+		logger.log("Received WebSocket message:", data.type);
 
 		switch (data.type) {
 			case "connected":
-				console.log("Server confirmed connection:", data);
+				logger.log("Server confirmed connection:", data);
 				this.emit("serverConnected", data);
 				break;
 
 			case "newMatch":
-				console.log("New match received:", data.payload);
+				logger.log("New match received:", data.payload);
 				this.emit("newMatch", data.payload);
 				break;
 
@@ -164,12 +176,12 @@ export class WebSocketManager extends EventEmitter {
 				break;
 
 			case "partnerOnline":
-				console.log("Partner came online:", data);
+				logger.log("Partner came online:", data);
 				this.emit("partnerOnline", data);
 				break;
 
 			case "partnerOffline":
-				console.log("Partner went offline:", data);
+				logger.log("Partner went offline:", data);
 				this.emit("partnerOffline", data);
 				break;
 
@@ -201,13 +213,13 @@ export class WebSocketManager extends EventEmitter {
 				this.ws.send(JSON.stringify(data));
 				return true;
 			} catch (error) {
-				console.error("Failed to send message:", error);
+				logger.error("Failed to send message:", error);
 				this.messageQueue.push(data);
 				return false;
 			}
 		} else {
 			// Queue message for sending when connected
-			console.log("Queueing message (not connected):", data.type);
+			logger.log("Queueing message (not connected):", data.type);
 			this.messageQueue.push(data);
 
 			// Attempt to connect if disconnected
@@ -220,7 +232,7 @@ export class WebSocketManager extends EventEmitter {
 	}
 
 	private flushMessageQueue() {
-		console.log(`Flushing ${this.messageQueue.length} queued messages`);
+		logger.log(`Flushing ${this.messageQueue.length} queued messages`);
 
 		while (
 			this.messageQueue.length > 0 &&
@@ -231,7 +243,7 @@ export class WebSocketManager extends EventEmitter {
 				try {
 					this.ws.send(JSON.stringify(message));
 				} catch (error) {
-					console.error("Failed to send queued message:", error);
+					logger.error("Failed to send queued message:", error);
 					// Put it back in the queue
 					this.messageQueue.unshift(message);
 					break;
@@ -242,7 +254,7 @@ export class WebSocketManager extends EventEmitter {
 
 	private scheduleReconnect() {
 		if (this.reconnectAttempts >= this.maxReconnectAttempts) {
-			console.error("Max reconnection attempts reached");
+			logger.error("Max reconnection attempts reached");
 			this.emit("maxReconnectAttemptsReached");
 			this.setState(ConnectionState.ERROR);
 			return;
@@ -257,7 +269,7 @@ export class WebSocketManager extends EventEmitter {
 			30000,
 		);
 
-		console.log(
+		logger.log(
 			`Reconnecting in ${delay}ms (attempt ${this.reconnectAttempts}/${this.maxReconnectAttempts})`,
 		);
 
@@ -312,7 +324,7 @@ export class WebSocketManager extends EventEmitter {
 
 			return null;
 		} catch (error) {
-			console.error("Failed to get auth token:", error);
+			logger.error("Failed to get auth token:", error);
 			return null;
 		}
 	}
@@ -321,7 +333,7 @@ export class WebSocketManager extends EventEmitter {
 		if (this.state !== state) {
 			const oldState = this.state;
 			this.state = state;
-			console.log(`WebSocket state changed: ${oldState} -> ${state}`);
+			logger.log(`WebSocket state changed: ${oldState} -> ${state}`);
 			this.emit("stateChange", { oldState, newState: state });
 		}
 	}
@@ -331,7 +343,7 @@ export class WebSocketManager extends EventEmitter {
 	}
 
 	public disconnect() {
-		console.log("Manually disconnecting WebSocket");
+		logger.log("Manually disconnecting WebSocket");
 
 		this.stopHeartbeat();
 		this.reconnectAttempts = this.maxReconnectAttempts; // Prevent auto-reconnect

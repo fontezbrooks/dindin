@@ -11,6 +11,7 @@ import {
 	View,
 } from "react-native";
 import { trpc } from "../../lib/trpc";
+import logger from '@/utils/logger';
 
 interface Notification {
 	_id: string;
@@ -100,7 +101,7 @@ export const NotificationsBell: React.FC<NotificationsBellProps> = ({
 				// Refetch unread count
 				unreadCountQuery.refetch();
 			} catch (error) {
-				console.error("Failed to mark notification as read:", error);
+				logger.error("Failed to mark notification as read:", error);
 			}
 		}
 

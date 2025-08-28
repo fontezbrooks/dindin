@@ -1,36 +1,37 @@
-import mongoose from 'mongoose';
-import { Recipe } from './models/recipe.model';
 import * as fs from 'fs';
+import mongoose from 'mongoose';
 import * as path from 'path';
+import { Recipe } from './models/recipe.model';
+import logger from '../lib/logger';
 
 async function importRecipes() {
   try {
     // Connect to MongoDB
     await mongoose.connect('mongodb://root:password@localhost:27017/dindin-app?authSource=admin');
-    console.log('✅ Connected to MongoDB');
+    logger.log('✅ Connected to MongoDB');
 
     // Drop existing indexes to handle schema changes
     try {
       await Recipe.collection.dropIndexes();
-      console.log('🔧 Dropped existing indexes');
+      logger.log('🔧 Dropped existing indexes');
     } catch (err) {
-      console.log('ℹ️  No indexes to drop or error dropping indexes');
+      logger.log('ℹ️  No indexes to drop or error dropping indexes');
     }
 
     // Ensure indexes are created with the new schema
     await Recipe.ensureIndexes();
-    console.log('📇 Created new indexes');
+    logger.log('📇 Created new indexes');
 
     // Clear existing recipes
     const deleteResult = await Recipe.deleteMany({});
-    console.log(`🗑️  Cleared ${deleteResult.deletedCount} existing recipes`);
+    logger.log(`🗑️  Cleared ${deleteResult.deletedCount} existing recipes`);
 
     // Read the JSON file
     const jsonPath = path.join(__dirname, '../../../../../docs/LATESTdindin.recipes.json');
     const jsonContent = fs.readFileSync(jsonPath, 'utf-8');
     const recipesData = JSON.parse(jsonContent);
     
-    console.log(`📄 Found ${recipesData.length} recipes to import`);
+    logger.log(`📄 Found ${recipesData.length} recipes to import`);
 
     // Process and import each recipe
     const importedRecipes = [];
@@ -60,15 +61,15 @@ async function importRecipes() {
       // Create the recipe
       const recipe = await Recipe.create(transformedRecipe);
       importedRecipes.push(recipe);
-      console.log(`✅ Imported: ${recipe.title}`);
+      logger.log(`✅ Imported: ${recipe.title}`);
     }
 
-    console.log(`\n🎉 Successfully imported ${importedRecipes.length} recipes!`);
+    logger.log(`\n🎉 Successfully imported ${importedRecipes.length} recipes!`);
 
     // Show sample of imported data
     const sampleRecipe = await Recipe.findOne();
-    console.log('\n📝 Sample imported recipe:');
-    console.log({
+    logger.log('\n📝 Sample imported recipe:');
+    logger.log({
       title: sampleRecipe?.title,
       description: sampleRecipe?.description?.substring(0, 100) + '...',
       cook_time: sampleRecipe?.cook_time,
@@ -80,10 +81,10 @@ async function importRecipes() {
     });
 
   } catch (error) {
-    console.error('❌ Import failed:', error);
+    logger.error('❌ Import failed:', error);
   } finally {
     await mongoose.disconnect();
-    console.log('📤 Disconnected from MongoDB');
+    logger.log('📤 Disconnected from MongoDB');
   }
 }
 

@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { authClient } from "@/lib/auth-client";
+import logger from '@/utils/logger';
 
 export default function SignUpScreen() {
 	const [name, setName] = useState("");
@@ -55,7 +56,7 @@ export default function SignUpScreen() {
 			}
 		} catch (error) {
 			Alert.alert("Error", "Failed to create account. Please try again.");
-			console.error("Sign up error:", error);
+			logger.error("Sign up error:", error);
 		} finally {
 			setIsLoading(false);
 		}
