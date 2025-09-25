@@ -15,11 +15,11 @@ interface UseLibraryDataProps {
   limit?: number;
 }
 
-export function useLibraryData({ 
-  selectedTab, 
-  searchQuery, 
+export function useLibraryData({
+  selectedTab,
+  searchQuery,
   filters,
-  limit = 20 
+  limit = 20
 }: UseLibraryDataProps) {
   const [offset, setOffset] = useState(0);
   const wsManager = getWebSocketManager();

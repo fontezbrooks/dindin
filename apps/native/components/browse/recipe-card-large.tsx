@@ -10,18 +10,18 @@ import {
 } from "react-native";
 
 // Note: Install expo-linear-gradient: expo install expo-linear-gradient
-// import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient';
 
 // Temporary LinearGradient replacement
-const LinearGradient = ({ colors, className, ...props }: any) => {
-	return (
-		<View
-			className={className}
-			style={{ backgroundColor: "rgba(0,0,0,0.2)" }}
-			{...props}
-		/>
-	);
-};
+// const LinearGradient = ({ colors, className, ...props }: any) => {
+// 	return (
+// 		<View
+// 			className={className}
+// 			style={{ backgroundColor: "rgba(0,0,0,0.2)" }}
+// 			{...props}
+// 		/>
+// 	);
+// };
 
 interface Recipe {
 	id: string;

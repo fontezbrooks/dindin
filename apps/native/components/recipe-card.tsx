@@ -114,12 +114,24 @@ export function RecipeCard({
 					resizeMode="cover"
 				/>
 
-				{/* Like/Nope Indicators */}
+
+				{/* Info Button */}
+				<Pressable
+					onPress={toggleExpanded}
+					className="absolute bottom-4 right-4 w-10 h-10 bg-white/90 rounded-full items-center justify-center shadow-lg"
+				>
+					<Ionicons
+						name="information-circle-outline"
+						size={24}
+						color="#374151"
+					/>
+				</Pressable>
+                				{/* Like/Nope Indicators */}
 				{isTop && !isExpanded && (
 					<>
 						<Animated.View
 							style={[likeOpacityStyle]}
-							className="absolute top-8 left-8 px-6 py-3 bg-green-500 rounded-full"
+							className="absolute top-8 left-8 px-6 py-3 bg-cyan-500 rounded-full"
 						>
 							<Text className="text-white text-2xl font-bold">LIKE</Text>
 						</Animated.View>
@@ -133,17 +145,6 @@ export function RecipeCard({
 					</>
 				)}
 
-				{/* Info Button */}
-				<Pressable
-					onPress={toggleExpanded}
-					className="absolute bottom-4 right-4 w-10 h-10 bg-white/90 rounded-full items-center justify-center shadow-lg"
-				>
-					<Ionicons
-						name="information-circle-outline"
-						size={24}
-						color="#374151"
-					/>
-				</Pressable>
 			</View>
 
 			{/* Content Section - 55% height */}
@@ -427,3 +428,5 @@ export function RecipeCard({
 		</Animated.View>
 	);
 }
+
+
