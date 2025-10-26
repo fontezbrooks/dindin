@@ -84,24 +84,24 @@ class Logger {
   // Safe method to log objects without exposing sensitive data
   logSafe(message: string, obj: any): void {
     if (!this.shouldLog('info')) return;
-    
+
     const safeObj = this.sanitizeObject(obj);
     this.info(message, safeObj);
   }
 
   private sanitizeObject(obj: any): any {
     if (!obj) return obj;
-    
+
     const sensitive = [
       'password', 'token', 'secret', 'key', 'auth',
       'authorization', 'cookie', 'session', 'api_key',
       'apiKey', 'private', 'credential', 'secure'
     ];
-    
+
     if (typeof obj !== 'object') return obj;
-    
+
     const sanitized: any = Array.isArray(obj) ? [] : {};
-    
+
     for (const key in obj) {
       const lowerKey = key.toLowerCase();
       if (sensitive.some(s => lowerKey.includes(s))) {
@@ -112,7 +112,7 @@ class Logger {
         sanitized[key] = obj[key];
       }
     }
-    
+
     return sanitized;
   }
 
@@ -127,7 +127,7 @@ class Logger {
   // Network request logger
   logRequest(method: string, url: string, data?: any): void {
     if (!this.shouldLog('debug')) return;
-    
+
     const safeData = data ? this.sanitizeObject(data) : undefined;
     this.debug(`${method} ${url}`, safeData);
   }
@@ -135,7 +135,7 @@ class Logger {
   // Response logger
   logResponse(status: number, url: string, data?: any): void {
     if (!this.shouldLog('debug')) return;
-    
+
     const safeData = data ? this.sanitizeObject(data) : undefined;
     const level = status >= 400 ? 'error' : 'debug';
     this.formatMessage(level as LogLevel, `Response ${status} from ${url}`, safeData);

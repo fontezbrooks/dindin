@@ -1,4 +1,9 @@
-import React, { forwardRef, useCallback, useImperativeHandle, useMemo } from "react";
+import React, {
+  forwardRef,
+  useCallback,
+  useImperativeHandle,
+  useMemo,
+} from "react";
 import { View, useWindowDimensions } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
@@ -10,7 +15,7 @@ import Animated, {
   useSharedValue,
   withSpring,
   withTiming,
-  SharedValue,
+  type SharedValue,
 } from "react-native-reanimated";
 import { scheduleOnRN } from "react-native-worklets";
 import { RecipeCard } from "@/components/recipe-card";
@@ -31,7 +36,10 @@ interface SwipeCardProps {
 }
 
 export const SwipeCard = forwardRef<SwipeCardRefType, SwipeCardProps>(
-  ({ recipe, index, activeIndex, onSwipeLeft, onSwipeRight, enabled = true }, ref) => {
+  (
+    { recipe, index, activeIndex, onSwipeLeft, onSwipeRight, enabled = true },
+    ref
+  ) => {
     const translateX = useSharedValue(0);
     const translateY = useSharedValue(0);
     const currentActiveIndex = useSharedValue(Math.floor(activeIndex.value));
@@ -63,13 +71,17 @@ export const SwipeCard = forwardRef<SwipeCardRefType, SwipeCardProps>(
       }
     }, [translateX, translateY]);
 
-    useImperativeHandle(ref, () => {
-      return {
-        swipeLeft,
-        swipeRight,
-        reset,
-      };
-    }, [swipeLeft, swipeRight, reset]);
+    useImperativeHandle(
+      ref,
+      () => {
+        return {
+          swipeLeft,
+          swipeRight,
+          reset,
+        };
+      },
+      [swipeLeft, swipeRight, reset]
+    );
 
     const inputRange = useMemo(() => {
       return [-width / 3, 0, width / 3];
@@ -153,7 +165,9 @@ export const SwipeCard = forwardRef<SwipeCardRefType, SwipeCardProps>(
             },
             rCardStyle,
           ]}
-          pointerEvents={index === Math.floor(activeIndex.value) ? "auto" : "none"}
+          pointerEvents={
+            index === Math.floor(activeIndex.value) ? "auto" : "none"
+          }
         >
           <View
             style={{

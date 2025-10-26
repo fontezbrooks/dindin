@@ -20,11 +20,11 @@ interface Ingredient {
 interface RecipeDetail {
   id: string;
   title: string;
-  imageUrl: string;
+  image_url: string;
   cookTime: number;
   difficulty: "easy" | "medium" | "hard";
   cuisine: string | string[];
-  ingredients: (string | Ingredient)[];
+  ingredients: Ingredient[];
   steps: string[];
   tags: string[];
   description?: string;
@@ -83,7 +83,7 @@ export function RecipeDetailModal({
 
           {/* Recipe Image */}
           <Image
-            source={{ uri: recipe.imageUrl }}
+            source={{ uri: recipe.image_url }}
             className="w-full h-64"
             resizeMode="cover"
           />
@@ -125,8 +125,8 @@ export function RecipeDetailModal({
             <Text className="text-lg font-semibold text-gray-800 mb-2">
               Ingredients
             </Text>
-            {recipe.ingredients?.map((ingredient, index) => (
-              <View key={index} className="flex-row items-start mb-1">
+            {recipe.ingredients?.map((ingredient) => (
+              <View key={ingredient._id} className="flex-row items-start mb-1">
                 <Text className="text-gray-400 mr-2">•</Text>
                 <Text className="text-gray-600 flex-1">
                   {typeof ingredient === "string"
@@ -141,7 +141,7 @@ export function RecipeDetailModal({
               Instructions
             </Text>
             {recipe.steps?.map((step, index) => (
-              <View key={index} className="flex-row items-start mb-2">
+              <View key={step} className="flex-row items-start mb-2">
                 <View className="bg-pink-500 rounded-full w-6 h-6 items-center justify-center mr-3">
                   <Text className="text-white text-xs font-semibold">
                     {index + 1}
@@ -163,7 +163,9 @@ export function RecipeDetailModal({
                 onPress={() => onShareRecipe?.(recipe)}
                 className="flex-1 bg-gray-200 rounded-xl py-3 items-center"
               >
-                <Text className="text-gray-700 font-semibold">Share Recipe</Text>
+                <Text className="text-gray-700 font-semibold">
+                  Share Recipe
+                </Text>
               </TouchableOpacity>
             </View>
           </View>

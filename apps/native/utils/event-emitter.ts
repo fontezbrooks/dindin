@@ -15,7 +15,7 @@ export class EventEmitter {
 		if (!this.events.has(event)) {
 			this.events.set(event, []);
 		}
-		this.events.get(event)!.push(listener);
+		this.events.get(event)?.push(listener);
 	}
 
 	off(event: string, listener: EventListener): void {

@@ -29,7 +29,9 @@ function OptimizedSwipeScreen() {
 
     // Check if we've already processed this match
     if (processedMatchesRef.current.has(matchId)) {
-      logger.log(`[SwipeScreen] Duplicate match celebration prevented for recipe ${matchId}`);
+      logger.log(
+        `[SwipeScreen] Duplicate match celebration prevented for recipe ${matchId}`
+      );
       return;
     }
 
@@ -158,7 +160,8 @@ function OptimizedSwipeScreen() {
           setMatchCelebration(null);
           // Optional: Clear the specific match from the set after modal closes
           // This allows re-showing if user matches the same recipe in a different session
-          const matchId = matchCelebration?.recipe?._id || matchCelebration?.recipe?.id;
+          const matchId =
+            matchCelebration?.recipe?._id || matchCelebration?.recipe?.id;
           if (matchId) {
             setTimeout(() => {
               processedMatchesRef.current.delete(matchId);
