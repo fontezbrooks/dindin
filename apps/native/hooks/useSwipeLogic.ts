@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { InteractionManager, Alert } from "react-native";
 import {
-  useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
   withDecay,
@@ -10,6 +9,7 @@ import {
   interpolate,
   runOnJS,
 } from "react-native-reanimated";
+import { Gesture } from "react-native-gesture-handler";
 import {
   useMatchWebSocket,
   useWebSocket,
@@ -180,105 +180,113 @@ export function useSwipeLogic({ recipes, onMatchCelebration }: UseSwipeLogicProp
     ]
   );
 
-  // Optimized gesture handler with velocity support
-  const gestureHandler = useAnimatedGestureHandler({
-    onStart: (_, ctx: any) => {
-      'worklet';
-      ctx.startX = translateX.value;
-      ctx.startY = translateY.value;
-    },
-    onActive: (event, ctx) => {
-      'worklet';
-      translateX.value = ctx.startX + event.translationX;
-      translateY.value = ctx.startY + event.translationY;
+  // Optimized gesture handler with velocity support using new Gesture API
+  const gestureHandler = useMemo(() => {
+    return Gesture.Pan()
+      .onBegin(() => {
+        'worklet';
+        // Store initial values when gesture starts
+      })
+      .onUpdate((event) => {
+        'worklet';
+        translateX.value = event.translationX;
+        translateY.value = event.translationY;
 
-      rotation.value = interpolate(
-        translateX.value,
-        [-300, 0, 300],
-        [-15, 0, 15]
-      );
+        rotation.value = interpolate(
+          translateX.value,
+          [-300, 0, 300],
+          [-15, 0, 15]
+        );
 
-      scale.value = interpolate(
-        Math.abs(translateX.value),
-        [0, 100],
-        [1, 0.98]
-      );
+        scale.value = interpolate(
+          Math.abs(translateX.value),
+          [0, 100],
+          [1, 0.98]
+        );
 
-      nextCardScale.value = interpolate(
-        Math.abs(translateX.value),
-        [0, SWIPE_THRESHOLD],
-        [0.95, 1]
-      );
+        nextCardScale.value = interpolate(
+          Math.abs(translateX.value),
+          [0, SWIPE_THRESHOLD],
+          [0.95, 1]
+        );
 
-      nextCardOpacity.value = interpolate(
-        Math.abs(translateX.value),
-        [0, SWIPE_THRESHOLD],
-        [0.8, 1]
-      );
-    },
-    onEnd: (event) => {
-      'worklet';
-      const velocityX = event.velocityX;
-      const velocityY = event.velocityY;
-      const absVelocityX = Math.abs(velocityX);
-      const absTranslateX = Math.abs(translateX.value);
+        nextCardOpacity.value = interpolate(
+          Math.abs(translateX.value),
+          [0, SWIPE_THRESHOLD],
+          [0.8, 1]
+        );
+      })
+      .onEnd((event) => {
+        'worklet';
+        const velocityX = event.velocityX;
+        const velocityY = event.velocityY;
+        const absVelocityX = Math.abs(velocityX);
+        const absTranslateX = Math.abs(translateX.value);
 
-      const shouldSwipe =
-        absTranslateX > SWIPE_THRESHOLD ||
-        absVelocityX > VELOCITY_THRESHOLD;
+        const shouldSwipe =
+          absTranslateX > SWIPE_THRESHOLD ||
+          absVelocityX > VELOCITY_THRESHOLD;
 
-      if (shouldSwipe) {
-        const isLike = translateX.value > 0;
+        if (shouldSwipe) {
+          const isLike = translateX.value > 0;
 
-        if (absVelocityX > VELOCITY_THRESHOLD) {
-          translateX.value = withDecay(
-            {
-              velocity: velocityX,
+          if (absVelocityX > VELOCITY_THRESHOLD) {
+            translateX.value = withDecay(
+              {
+                velocity: velocityX,
+                deceleration: 0.999,
+                clamp: [isLike ? 300 : -500, isLike ? 500 : -300],
+              },
+              (finished) => {
+                'worklet';
+                if (finished) {
+                  runOnJS(handleSwipe)(isLike);
+                }
+              }
+            );
+
+            translateY.value = withDecay({
+              velocity: velocityY,
               deceleration: 0.999,
-              clamp: [isLike ? 300 : -500, isLike ? 500 : -300],
-            },
-            (finished) => {
-              'worklet';
-              if (finished) {
-                runOnJS(handleSwipe)(isLike);
+            });
+          } else {
+            translateX.value = withSpring(
+              isLike ? 400 : -400,
+              ANIMATION_CONFIG,
+              (finished) => {
+                'worklet';
+                if (finished) {
+                  runOnJS(handleSwipe)(isLike);
+                }
               }
-            }
-          );
+            );
 
-          translateY.value = withDecay({
-            velocity: velocityY,
-            deceleration: 0.999,
-          });
+            translateY.value = withSpring(0, ANIMATION_CONFIG);
+          }
+
+          scale.value = withTiming(0.8, { duration: 200 });
+          rotation.value = withSpring(isLike ? 30 : -30, ANIMATION_CONFIG);
         } else {
-          translateX.value = withSpring(
-            isLike ? 400 : -400,
-            ANIMATION_CONFIG,
-            (finished) => {
-              'worklet';
-              if (finished) {
-                runOnJS(handleSwipe)(isLike);
-              }
-            }
-          );
-
+          // Spring back to center
+          translateX.value = withSpring(0, ANIMATION_CONFIG);
           translateY.value = withSpring(0, ANIMATION_CONFIG);
+          rotation.value = withSpring(0, ANIMATION_CONFIG);
+          scale.value = withSpring(1, ANIMATION_CONFIG);
+
+          // Reset next card
+          nextCardScale.value = withSpring(0.95, ANIMATION_CONFIG);
+          nextCardOpacity.value = withSpring(0.8, ANIMATION_CONFIG);
         }
-
-        scale.value = withTiming(0.8, { duration: 200 });
-        rotation.value = withSpring(isLike ? 30 : -30, ANIMATION_CONFIG);
-      } else {
-        // Spring back to center
-        translateX.value = withSpring(0, ANIMATION_CONFIG);
-        translateY.value = withSpring(0, ANIMATION_CONFIG);
-        rotation.value = withSpring(0, ANIMATION_CONFIG);
-        scale.value = withSpring(1, ANIMATION_CONFIG);
-
-        // Reset next card
-        nextCardScale.value = withSpring(0.95, ANIMATION_CONFIG);
-        nextCardOpacity.value = withSpring(0.8, ANIMATION_CONFIG);
-      }
-    },
-  });
+      });
+  }, [
+    translateX,
+    translateY,
+    rotation,
+    scale,
+    nextCardScale,
+    nextCardOpacity,
+    handleSwipe,
+  ]);
 
   // Button press handler
   const handleButtonPress = useCallback(

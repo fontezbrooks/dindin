@@ -5,7 +5,7 @@ import { MatchCelebration } from "@/components/match-celebration";
 import { FeatureErrorBoundary } from "@/components/error-boundaries";
 import { useSwipeLogic } from "@/hooks/useSwipeLogic";
 import { useRecipeData } from "@/hooks/useRecipeData";
-import { SwipeCard } from "@/components/swipe/SwipeCard";
+import { SwipeCard } from "@/components/swipe/SwipeCardCompat";
 import { SwipeControls } from "@/components/swipe/SwipeControls";
 import { SwipeHeader } from "@/components/swipe/SwipeHeader";
 import { SwipeEmptyState } from "@/components/swipe/SwipeEmptyState";
